@@ -2,8 +2,8 @@ import { ReactNode } from "react";
 
 interface StatCardProps {
   label: string;
-  value: any;
-  subValue: any;
+  value: string;
+  subValue: string;
   icon: ReactNode;
   trend: string;
 }
