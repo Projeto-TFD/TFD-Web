@@ -37,7 +37,7 @@ export default function VeiculosPage() {
           <div
             className={`w-10 h-10 rounded-lg bg-accent text-white flex items-center justify-center font-bold text-lg`}
           >
-            <Bus className="text-blue-400" />
+            <Bus className="text-slate-600" />
           </div>
         )}
         renderName={(item) => item.name}
