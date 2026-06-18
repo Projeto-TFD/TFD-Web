@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Maria da Silva Souza",
+    "sub": "CPF: ***123.456-** · Cart. SUS: 898765432100001",
+    "status": "Ativo"
+  },
+  {
+    "id": 2,
+    "name": "José Oliveira Neto",
+    "sub": "CPF: ***234.567-** · Cart. SUS: 712345678900002",
+    "status": "Ativo"
+  },
+  {
+    "id": 3,
+    "name": "Ana Martins Ferreira",
+    "sub": "CPF: ***345.678-** · Cart. SUS: 634567890100003",
+    "status": "Inativo"
+  },
+  {
+    "id": 4,
+    "name": "Raimundo Lima Costa",
+    "sub": "CPF: ***456.789-** · Cart. SUS: 556789012300004",
+    "status": "Ativo"
+  }
+]
