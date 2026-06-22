@@ -20,7 +20,7 @@ export default function Login() {
               }}
             >
               <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-2">
+                <label htmlFor="email" className="block text-xs font-bold text-slate-500 uppercase mb-1">
                   E-mail
                 </label>
 
@@ -30,13 +30,13 @@ export default function Login() {
                   type="email"
                   autoComplete="email"
                   placeholder="seu@email.com"
-                  className="w-full bg-background rounded-md border border-gray-300 px-4 py-2.5 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+                  className="w-full bg-background px-4 py-2.5 border border-slate-200 rounded-md outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />
               </div>
 
               <div>
-                <label htmlFor="password" className="block text-sm font-medium mb-2">
+                <label htmlFor="password" className="block text-xs font-bold text-slate-500 uppercase mb-1">
                   Senha
                 </label>
 
@@ -46,7 +46,7 @@ export default function Login() {
                   type="password"
                   autoComplete="current-password"
                   placeholder="Digite sua senha"
-                  className="w-full bg-background  rounded-md border border-gray-300 px-4 py-2.5 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+                  className="w-full bg-background px-4 py-2.5 border border-slate-200 rounded-md outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />
               </div>

@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "João Silva Santos",
+    "sub": "CPF: ***234.567-** · CNH: 01234567890 · Cat. D · Val: 12/2027",
+    "status": "Ativo"
+  },
+  {
+    "id": 2,
+    "name": "Marcos Lima Ferreira",
+    "sub": "CPF: ***891.234-** · CNH: 09876543210 · Cat. D · Val: 08/2028",
+    "status": "Ativo"
+  },
+  {
+    "id": 3,
+    "name": "Pedro Alves Costa",
+    "sub": "CPF: ***567.890-** · CNH: 11223344556 · Cat. D · Val: 03/2024",
+    "status": "Vencida"
+  },
+  {
+    "id": 4,
+    "name": "Antônio Souza Neto",
+    "sub": "CPF: ***345.678-** · CNH: 55443322110 · Cat. D · Val: 06/2026",
+    "status": "Inativo"
+  }
+]
