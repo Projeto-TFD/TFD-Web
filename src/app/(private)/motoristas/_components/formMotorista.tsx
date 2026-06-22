@@ -7,16 +7,16 @@ import { SubmitEvent } from "react";
 interface FormPassageiroProps {
   handleSubmit: (e: SubmitEvent<HTMLFormElement>) => void;
   formData: Omit<PassageiroType, "id">;
-  editingPassenger: boolean;
+  editingItem: boolean;
   handleChangeFormData: (data: Omit<VeiculoType, "id">) => void;
   handleOpenModal: (b: boolean) => void;
 }
 
-export default function FormPassageiro({
+export default function FormMotorista({
   handleSubmit,
   formData,
   handleChangeFormData,
-  editingPassenger,
+  editingItem,
   handleOpenModal,
 }: FormPassageiroProps) {
   return (
@@ -31,7 +31,7 @@ export default function FormPassageiro({
         />
       </div>
       <div>
-        <label className="block text-xs font-bold text-slate-500 uppercase mb-1">CPF / Cartão SUS</label>
+        <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Documentos (CPF/CNH)</label>
         <input
           required
           className="w-full p-2 border border-slate-200 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500"
@@ -47,6 +47,7 @@ export default function FormPassageiro({
           onChange={(e) => handleChangeFormData({ ...formData, status: e.target.value })}
         >
           <option value="Ativo">Ativo</option>
+          <option value="Vencida">CNH Vencida</option>
           <option value="Inativo">Inativo</option>
         </select>
       </div>
@@ -62,7 +63,7 @@ export default function FormPassageiro({
           type="submit"
           className="flex-1 py-2 bg-blue-700 text-white text-sm font-bold rounded-lg hover:bg-blue-800 transition-colors"
         >
-          {editingPassenger ? "Salvar Alterações" : "Cadastrar"}
+          {editingItem ? "Salvar Alterações" : "Cadastrar"}
         </button>
       </div>
     </form>
