@@ -1,7 +1,7 @@
 "use client";
 
 import { SubmitEvent, useState } from "react";
-import { VeiculoType } from "@/src/types/veiculos.types";
+import { VeiculosType as VeiculoType } from "@/src/types/veiculos.types";
 import VeiculosData from "@/src/data/veiculos.json";
 
 export default function useVeiculos() {

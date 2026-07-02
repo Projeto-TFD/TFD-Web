@@ -1,14 +1,12 @@
 "use client";
 
-import { SubmitEvent, useState } from "react";
-import Modal from "@/src/components/ui/Modal";
 import Badge from "@/src/components/ui/Badge";
-import { VeiculoType } from "@/src/types/veiculos.types";
-import VeiculosData from "@/src/data/veiculos.json";
+import { VeiculosType as VeiculoType } from "@/src/types/veiculos.types";
 import EntityList from "@/src/components/layout/entity_list/EntityList";
-import FormVeiculo from "./_components/formVeiculo";
 import { Bus } from "lucide-react";
 import useVeiculos from "./useVeiculos";
+import FormModal from "@/src/components/layout/modais/FormModal";
+import VeiculoFields from "./_components/veiculoFields";
 
 export default function VeiculosPage() {
   const {
@@ -49,19 +47,19 @@ export default function VeiculosPage() {
         )}
       />
 
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+      <FormModal
+        open={isModalOpen}
+        onOpenChange={setIsModalOpen}
+        onSubmit={handleSubmit}
         title={editingVehicle ? "Editar Veículo" : "Novo Veículo"}
+        size="lg"
       >
-        <FormVeiculo
+        <VeiculoFields
           formData={formData}
           editingVehicle={editingVehicle !== null}
           handleChangeFormData={(data) => setFormData(data)}
-          handleOpenModal={(b) => setIsModalOpen(b)}
-          handleSubmit={handleSubmit}
         />
-      </Modal>
+      </FormModal>
     </>
   );
 }

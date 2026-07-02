@@ -2,6 +2,13 @@ export enum TipoVeiculo {
   Proprio = "PROPRIO",
 }
 
+export type VeiculosType = {
+  id: number;
+  name: string;
+  sub: string;
+  status: string;
+};
+
 export type VeiculoType = {
   id: number;
   nome: string;
