@@ -1,9 +1,9 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import useLogin from "./useLogin";
 
 export default function Login() {
-  const router = useRouter();
+  const { form, onSubmit, loginMutation } = useLogin();
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -12,13 +12,7 @@ export default function Login() {
           <div className="bg-transparent md:bg-secondary rounded-sm p-8 md:p-10 shadow-0 md:shadow-md border border-gray">
             <h1 className="text-3xl font-bold text-slate-800 text-center mb-8">Login</h1>
 
-            <form
-              className="space-y-5"
-              onSubmit={(e) => {
-                e.preventDefault();
-                router.push("/");
-              }}
-            >
+            <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)}>
               <div>
                 <label htmlFor="email" className="block text-xs font-bold text-slate-500 uppercase mb-1">
                   E-mail
@@ -26,12 +20,12 @@ export default function Login() {
 
                 <input
                   id="email"
-                  name="email"
                   type="email"
                   autoComplete="email"
                   placeholder="seu@email.com"
                   className="w-full bg-background px-4 py-2.5 border border-slate-200 rounded-md outline-none focus:ring-2 focus:ring-blue-500"
                   required
+                  {...form.register("email")}
                 />
               </div>
 
@@ -42,20 +36,21 @@ export default function Login() {
 
                 <input
                   id="password"
-                  name="password"
                   type="password"
                   autoComplete="current-password"
                   placeholder="Digite sua senha"
                   className="w-full bg-background px-4 py-2.5 border border-slate-200 rounded-md outline-none focus:ring-2 focus:ring-blue-500"
                   required
+                  {...form.register("password")}
                 />
               </div>
 
               <button
                 type="submit"
                 className="w-full rounded-md bg-blue-700 px-4 py-3 font-medium text-white transition hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                disabled={loginMutation.isPending}
               >
-                Entrar
+                {loginMutation.isPending ? "Entrando" : "Entrar"}
               </button>
             </form>
           </div>

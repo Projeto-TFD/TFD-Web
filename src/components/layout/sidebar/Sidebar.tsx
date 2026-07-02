@@ -1,18 +1,12 @@
 "use client";
 
-import { LayoutDashboard, Users, User, Bus } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
-
-const menuItems = [
-  { id: "dashboard", label: "Dashboard", icon: LayoutDashboard, path: "/" },
-  { id: "vehicles", label: "Veículos", icon: Bus, path: "/veiculos" },
-  { id: "drivers", label: "Motoristas", icon: User, path: "/motoristas" },
-  { id: "passengers", label: "Passageiros", icon: Users, path: "/passageiros" },
-] as const;
+import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Bus, UserCircle } from "lucide-react";
+import useSidebar from "./useSidebar";
 
 const Sidebar = () => {
-  const router = useRouter();
-  const pathname = usePathname();
+  const { menuItems, router, user, loading, pathname } = useSidebar();
 
   return (
     <aside className="w-64 bg-[#1e2d4a] text-slate-300 flex flex-col">
@@ -38,6 +32,19 @@ const Sidebar = () => {
           );
         })}
       </nav>
+
+      <div className="mt-auto px-3 pb-6">
+        <Separator className="mb-4 bg-slate-700" />
+
+        {loading ? (
+          <Skeleton className="bg-blue-800 h-8 rounded-full" />
+        ) : (
+          <div className="flex items-center gap-2 bg-blue-800 px-3 py-2 rounded-full cursor-pointer hover:bg-blue-700 transition-colors">
+            <UserCircle size={24} />
+            <span className="text-xs font-medium">{user?.nome}</span>
+          </div>
+        )}
+      </div>
     </aside>
   );
 };
