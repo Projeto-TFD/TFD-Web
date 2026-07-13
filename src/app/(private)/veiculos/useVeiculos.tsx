@@ -1,14 +1,21 @@
 "use client";
 
 import { SubmitEvent, useState } from "react";
-import { VeiculosType as VeiculoType } from "@/src/types/veiculos.types";
-import VeiculosData from "@/src/data/veiculos.json";
+import { VeiculosType, VeiculoType } from "@/src/types/veiculos.types";
+import { useQuery } from "@tanstack/react-query";
+import { VeiculoRequests } from "@/src/services/api/veiculo/veiculoRequests";
 
 export default function useVeiculos() {
-  const [vehicles, setVehicles] = useState<VeiculoType[]>(VeiculosData);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingVehicle, setEditingVehicle] = useState<null | VeiculoType>(null);
-  const [formData, setFormData] = useState<Omit<VeiculoType, "id">>({ name: "", sub: "", status: "Ativo" });
+  const [formData, setFormData] = useState<Omit<VeiculosType, "id">>({ name: "", sub: "", status: "Ativo" });
+
+  const { isLoading, data, isError } = useQuery({
+    queryKey: ["veiculos"],
+    queryFn: async () => {
+      return await VeiculoRequests.getAll();
+    },
+  });
 
   const handleOpenAdd = () => {
     setEditingVehicle(null);
@@ -18,29 +25,19 @@ export default function useVeiculos() {
 
   const handleOpenEdit = (vehicle: VeiculoType) => {
     setEditingVehicle(vehicle);
-    setFormData({ name: vehicle.name, sub: vehicle.sub, status: vehicle.status });
+    setFormData({ name: vehicle.nome, sub: vehicle.placa, status: "Ativo" });
     setIsModalOpen(true);
   };
 
   const handleDelete = (vehicle: VeiculoType) => {
-    if (window.confirm(`Tem certeza que deseja excluir o veículo ${vehicle.name}?`)) {
-      setVehicles(vehicles.filter((v) => v.id !== vehicle.id));
+    if (window.confirm(`Tem certeza que deseja excluir o veículo ${vehicle.nome}?`)) {
+      return;
     }
   };
 
   const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (editingVehicle) {
-      setVehicles(vehicles.map((v) => (v.id === editingVehicle.id ? { ...v, ...formData } : v)));
-    } else {
-      const newVehicle = {
-        ...formData,
-        id: Date.now(),
-        icon: "🚌",
-        color: "bg-teal-600",
-      };
-      setVehicles([...vehicles, newVehicle]);
-    }
+
     setIsModalOpen(false);
   };
 
@@ -49,11 +46,13 @@ export default function useVeiculos() {
     handleDelete,
     isModalOpen,
     setIsModalOpen,
-    vehicles,
     handleOpenEdit,
     handleOpenAdd,
     formData,
     setFormData,
     editingVehicle,
+    isLoading,
+    isError,
+    data,
   };
 }

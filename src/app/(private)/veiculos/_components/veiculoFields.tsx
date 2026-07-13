@@ -1,5 +1,7 @@
 "use client";
 
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { VeiculosType as VeiculoType } from "@/src/types/veiculos.types";
 
 interface VeiculoFieldsProps {
@@ -13,33 +15,36 @@ export default function VeiculoFields({ formData, handleChangeFormData }: Veicul
     <>
       <div>
         <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Placa</label>
-        <input
+        <Input
           required
-          className="w-full p-2 border border-slate-200 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500"
+          className="bg-muted/40 py-5 px-2 focus-visible:ring-2 focus-visible:ring-blue-500"
           value={formData.name}
           onChange={(e) => handleChangeFormData({ ...formData, name: e.target.value.toUpperCase() })}
         />
       </div>
       <div>
         <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Modelo / Detalhes</label>
-        <input
+        <Input
           required
-          className="w-full p-2 border border-slate-200 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500"
+          className="bg-muted/40 py-5 px-2 focus-visible:ring-2 focus-visible:ring-blue-500"
           value={formData.sub}
           onChange={(e) => handleChangeFormData({ ...formData, sub: e.target.value })}
         />
       </div>
       <div>
         <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Status</label>
-        <select
-          className="w-full p-2 border border-slate-200 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500"
+        <Select
           value={formData.status}
-          onChange={(e) => handleChangeFormData({ ...formData, status: e.target.value })}
+          onValueChange={(tp: string) => handleChangeFormData({ ...formData, status: tp })}
         >
-          <option value="Ativo">Ativo</option>
-          <option value="Manutenção">Manutenção</option>
-          <option value="Inativo">Inativo</option>
-        </select>
+          <SelectTrigger className="w-full bg-muted/20 py-5" aria-label="Status do Veiculo">
+            <SelectValue placeholder={"Ativo"} />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value={"Ativo"}>Ativo</SelectItem>
+            <SelectItem value={"Inativo"}>Inativo</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
     </>
   );

@@ -1,5 +1,6 @@
 export enum TipoVeiculo {
   Proprio = "PROPRIO",
+  Locado = "LOCADO",
 }
 
 export type VeiculosType = {

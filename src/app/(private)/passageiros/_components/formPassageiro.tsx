@@ -1,14 +1,14 @@
 "use client";
 
 import { PassageiroType } from "@/src/types/passageiros.types";
-import { VeiculoType } from "@/src/types/veiculos.types";
+import { VeiculosType } from "@/src/types/veiculos.types";
 import { SubmitEvent } from "react";
 
 interface FormPassageiroProps {
   handleSubmit: (e: SubmitEvent<HTMLFormElement>) => void;
   formData: Omit<PassageiroType, "id">;
   editingPassenger: boolean;
-  handleChangeFormData: (data: Omit<VeiculoType, "id">) => void;
+  handleChangeFormData: (data: Omit<VeiculosType, "id">) => void;
   handleOpenModal: (b: boolean) => void;
 }
 
