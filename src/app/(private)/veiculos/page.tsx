@@ -67,6 +67,7 @@ export default function VeiculosPage() {
           <DataTable
             columns={columns}
             data={data || []}
+            searchColumn="nome"
             isLoading={isLoading}
             searchPlaceholder="Pesquisar veiculos..."
             statusFilter={{
