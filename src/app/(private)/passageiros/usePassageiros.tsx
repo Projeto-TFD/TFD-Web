@@ -1,7 +1,7 @@
 "use client";
 
 import { PassageiroType } from "@/src/types/passageiros.types";
-import { SubmitEvent, useState } from "react";
+import { BaseSyntheticEvent, SubmitEvent, useState } from "react";
 import PassageirosData from "@/src/data/passageiros.json";
 
 export default function usePassageiros() {
@@ -28,8 +28,8 @@ export default function usePassageiros() {
     }
   };
 
-  const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = (e?: BaseSyntheticEvent) => {
+    e?.preventDefault();
     if (editingPassenger) {
       setPassengers(passengers.map((p) => (p.id === editingPassenger.id ? { ...p, ...formData } : p)));
     } else {

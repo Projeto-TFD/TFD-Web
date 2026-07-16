@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "nome": "Mercedes-Benz Sprinter 416",
+    "placa": "ABC1D23",
+    "ano": 2020,
+    "renavam": "12345678901",
+    "tipo": "PROPRIO",
+    "createdAt": "2025-01-10T08:30:00Z",
+    "updatedAt": "2025-01-10T08:30:00Z"
+  },
+  {
+    "id": 2,
+    "nome": "Volkswagen Gol",
+    "placa": "DEF4G56",
+    "ano": 2019,
+    "renavam": "23456789012",
+    "tipo": "LOCADO",
+    "createdAt": "2025-01-12T10:15:00Z",
+    "updatedAt": "2025-02-05T14:20:00Z"
+  },
+  {
+    "id": 3,
+    "nome": "Fiat Ducato",
+    "placa": "HIJ7K89",
+    "ano": 2022,
+    "renavam": "34567890123",
+    "tipo": "PROPRIO",
+    "createdAt": "2025-01-15T09:45:00Z",
+    "updatedAt": "2025-03-01T11:10:00Z"
+  },
+  {
+    "id": 4,
+    "nome": "Chevrolet Spin",
+    "placa": "LMN2P34",
+    "ano": 2021,
+    "renavam": "45678901234",
+    "tipo": "LOCADO",
+    "createdAt": "2025-01-20T13:00:00Z",
+    "updatedAt": "2025-03-12T16:40:00Z"
+  },
+  {
+    "id": 5,
+    "nome": "Renault Master",
+    "placa": "QRS5T67",
+    "ano": 2023,
+    "renavam": "56789012345",
+    "tipo": "PROPRIO",
+    "createdAt": "2025-02-01T08:00:00Z",
+    "updatedAt": "2025-02-18T09:30:00Z"
+  },
+  {
+    "id": 6,
+    "nome": "Toyota Corolla",
+    "placa": "UVW8X90",
+    "ano": 2022,
+    "renavam": "67890123456",
+    "tipo": "LOCADO",
+    "createdAt": "2025-02-10T15:25:00Z",
+    "updatedAt": "2025-02-10T15:25:00Z"
+  },
+  {
+    "id": 7,
+    "nome": "Ford Transit",
+    "placa": "YZA1B23",
+    "ano": 2021,
+    "renavam": "78901234567",
+    "tipo": "PROPRIO",
+    "createdAt": "2025-02-15T10:40:00Z",
+    "updatedAt": "2025-03-20T12:00:00Z"
+  },
+  {
+    "id": 8,
+    "nome": "Hyundai HB20",
+    "placa": "CDE4F56",
+    "ano": 2020,
+    "renavam": "89012345678",
+    "tipo": "LOCADO",
+    "createdAt": "2025-03-01T09:10:00Z",
+    "updatedAt": "2025-03-01T09:10:00Z"
+  },
+  {
+    "id": 9,
+    "nome": "Iveco Daily",
+    "placa": "GHI7J89",
+    "ano": 2024,
+    "renavam": "90123456789",
+    "tipo": "PROPRIO",
+    "createdAt": "2025-03-08T11:50:00Z",
+    "updatedAt": "2025-03-18T17:15:00Z"
+  },
+  {
+    "id": 10,
+    "nome": "Volkswagen Virtus",
+    "placa": "KLM2N34",
+    "ano": 2023,
+    "renavam": "01234567890",
+    "tipo": "LOCADO",
+    "createdAt": "2025-03-15T14:05:00Z",
+    "updatedAt": "2025-04-02T08:45:00Z"
+  }
+]

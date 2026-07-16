@@ -1,26 +1,25 @@
 "use client";
 
 import { PassageiroType } from "@/src/types/passageiros.types";
-import { VeiculoType } from "@/src/types/veiculos.types";
+import { VeiculosType } from "@/src/types/veiculos.types";
 import { SubmitEvent } from "react";
 
 interface FormPassageiroProps {
   handleSubmit: (e: SubmitEvent<HTMLFormElement>) => void;
   formData: Omit<PassageiroType, "id">;
   editingPassenger: boolean;
-  handleChangeFormData: (data: Omit<VeiculoType, "id">) => void;
+  handleChangeFormData: (data: Omit<VeiculosType, "id">) => void;
   handleOpenModal: (b: boolean) => void;
 }
 
 export default function FormPassageiro({
-  handleSubmit,
   formData,
   handleChangeFormData,
   editingPassenger,
   handleOpenModal,
 }: FormPassageiroProps) {
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <>
       <div>
         <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Nome Completo</label>
         <input
@@ -65,6 +64,6 @@ export default function FormPassageiro({
           {editingPassenger ? "Salvar Alterações" : "Cadastrar"}
         </button>
       </div>
-    </form>
+    </>
   );
 }

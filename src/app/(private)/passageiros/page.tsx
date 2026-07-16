@@ -6,6 +6,7 @@ import Modal from "@/src/components/ui/Modal";
 import FormPassageiro from "./_components/formPassageiro";
 import usePassageiros from "./usePassageiros";
 import randomColors from "@/src/utils/randomColors";
+import FormModal from "@/src/components/layout/modais/FormModal";
 
 export default function PassageirosPage() {
   const {
@@ -42,9 +43,10 @@ export default function PassageirosPage() {
         renderStatus={(item) => <Badge variant={item.status === "Ativo" ? "success" : "warning"}>{item.status}</Badge>}
       />
 
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+      <FormModal
+        open={isModalOpen}
+        onOpenChange={setIsModalOpen}
+        onSubmit={handleSubmit}
         title={editingPassenger ? "Editar Passageiro" : "Novo Passageiro"}
       >
         <FormPassageiro
@@ -54,7 +56,7 @@ export default function PassageirosPage() {
           handleOpenModal={(b) => setIsModalOpen(b)}
           handleSubmit={handleSubmit}
         />
-      </Modal>
+      </FormModal>
     </>
   );
 }

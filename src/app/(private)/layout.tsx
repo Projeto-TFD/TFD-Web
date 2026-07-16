@@ -1,5 +1,4 @@
 import Sidebar from "@/src/components/layout/sidebar/Sidebar";
-import Topbar from "@/src/components/layout/topbar/Topbar";
 import { AuthProvider } from "@/src/providers/auth-provider";
 
 export default function RootLayout({
@@ -12,8 +11,7 @@ export default function RootLayout({
       <div className="flex h-screen bg-slate-100 font-sans text-slate-900">
         <Sidebar />
         <div className="flex flex-col flex-1 overflow-hidden">
-          {/* <Topbar /> */}
-          <main className="flex-1 overflow-y-auto p-6">{children}</main>
+          <main className="flex-1 overflow-y-auto p-8">{children}</main>
         </div>
       </div>
     </AuthProvider>
