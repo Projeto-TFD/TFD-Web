@@ -1,7 +1,7 @@
 "use client";
 
 import { TipoVeiculo } from "@/src/types/veiculos.types";
-import useVeiculos from "./useVeiculos";
+import useVeiculos from "./hooks/useVeiculos";
 import FormModal from "@/src/components/layout/modais/FormModal";
 import VeiculoFields from "./_components/veiculoFields";
 import DataTable from "@/src/components/layout/data-table/DataTable";
@@ -11,6 +11,7 @@ import { useMemo } from "react";
 import { Plus } from "lucide-react";
 import EmptyCustom from "@/src/components/ui/Empty";
 import { FormProvider } from "react-hook-form";
+import ConfirmModal from "@/src/components/layout/modais/ConfirmModal";
 
 export default function VeiculosPage() {
   const {
@@ -25,7 +26,12 @@ export default function VeiculosPage() {
     isError,
     data,
     createVeiculoMutation,
-    editingVeiculo,
+    isEditing,
+    isConfirmModalOpen,
+    setIsConfirmModalOpen,
+    onSubmitDelete,
+    deleteVeiculoMutation,
+    veiculoSelecionado,
   } = useVeiculos();
 
   const columns = useMemo(
@@ -77,13 +83,27 @@ export default function VeiculosPage() {
           open={isModalOpen}
           onOpenChange={setIsModalOpen}
           onSubmit={form.handleSubmit(onSubmit)}
-          title={editingVeiculo ? "Editar Veículo" : "Novo Veículo"}
+          title={isEditing ? "Editar Veículo" : "Novo Veículo"}
           size="xl"
           loading={createVeiculoMutation.isPending}
-          disabled={editingVeiculo ? !form.formState.isDirty : false}
+          disabled={isEditing ? !form.formState.isDirty : false}
         >
           <VeiculoFields />
         </FormModal>
+
+        <ConfirmModal
+          title="Confirmação de exclusão"
+          description={
+            <>
+              deseja realmente excluir o veiculo{" "}
+              <strong className="text-destructive">{veiculoSelecionado?.nome}</strong>
+            </>
+          }
+          open={isConfirmModalOpen}
+          onOpenChange={setIsConfirmModalOpen}
+          onClick={onSubmitDelete}
+          loading={deleteVeiculoMutation.isPending}
+        />
       </div>
     </FormProvider>
   );

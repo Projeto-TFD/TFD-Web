@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { TipoVeiculo } from "@/src/types/veiculos.types";
 import { Controller, useFormContext } from "react-hook-form";
-import { VeiculoFormData } from "../useVeiculos";
+import { VeiculoFormData } from "../_schemas/veiculoSchema";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 
 export default function VeiculoFields() {
@@ -39,7 +39,7 @@ export default function VeiculoFields() {
 
         <Input
           required
-          className="bg-muted/40 py-5 px-2 uppercase"
+          className="bg-muted/40 py-5 px-2 uppercase placeholder:normal-case"
           placeholder="Preencha aqui"
           {...register("placa", {
             setValueAs: (value) => value?.toUpperCase(),

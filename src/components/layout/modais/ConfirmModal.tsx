@@ -8,10 +8,11 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import ModalCustom from "../../ui/ModalCustom";
+import { ReactNode } from "react";
 
 interface ConfirmModalProps {
   title?: string;
-  description?: string;
+  description?: string | ReactNode;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onClick: () => void;
@@ -28,17 +29,26 @@ export default function ConfirmModal({
 }: ConfirmModalProps) {
   return (
     <ModalCustom open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-sm">
-        <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
-          <DialogDescription>{description}</DialogDescription>
+      <DialogContent className="lg:max-w-lg">
+        <DialogHeader className="flex flex-col gap-3">
+          <DialogTitle className="text-lg">{title}</DialogTitle>
+          <DialogDescription className="text-md">{description}</DialogDescription>
         </DialogHeader>
 
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="outline">Cancelar</Button>
+            <Button className="cursor-pointer" title="Cancelar e sair" variant="outline">
+              Cancelar
+            </Button>
           </DialogClose>
-          <Button type="submit" variant={"destructive"} disabled={loading} onClick={onClick}>
+          <Button
+            className="cursor-pointer"
+            title="Confirmação"
+            type="submit"
+            variant={"destructive"}
+            disabled={loading}
+            onClick={onClick}
+          >
             {loading ? "Confirmando.." : "Confirmar"}
           </Button>
         </DialogFooter>
