@@ -8,7 +8,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import ModalCustom from "../../ui/ModalCustom";
-import { ReactNode, SubmitEventHandler } from "react";
+import { BaseSyntheticEvent, ReactNode } from "react";
 
 interface FormModalProps {
   title?: string;
@@ -16,8 +16,9 @@ interface FormModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   children: ReactNode;
-  onSubmit: SubmitEventHandler<HTMLFormElement>;
+  onSubmit: (event?: BaseSyntheticEvent) => void | Promise<void>;
   loading?: boolean;
+  disabled?: boolean;
   size?: "sm" | "md" | "lg" | "xl";
 }
 
@@ -30,6 +31,7 @@ export default function FormModal({
   onSubmit,
   loading = false,
   size = "md",
+  disabled = false,
 }: FormModalProps) {
   const dialogSize = {
     sm: "sm:max-w-sm",
@@ -40,27 +42,32 @@ export default function FormModal({
 
   return (
     <ModalCustom open={open} onOpenChange={onOpenChange}>
-      <form onSubmit={onSubmit}>
-        <DialogContent className={dialogSize[size]}>
-          <DialogHeader>
+      <DialogContent className={dialogSize[size]}>
+        <form onSubmit={onSubmit}>
+          <DialogHeader className="mb-3">
             <DialogTitle className={`text-${size}`}>{title}</DialogTitle>
             <DialogDescription>{description}</DialogDescription>
           </DialogHeader>
 
           {children}
 
-          <DialogFooter>
+          <DialogFooter className="mt-6">
             <DialogClose asChild>
-              <Button variant="outline" className="cursor-pointer">
+              <Button variant="outline" className="cursor-pointer" title="Cancelar e sair">
                 Cancelar
               </Button>
             </DialogClose>
-            <Button type="submit" className="bg-green-500 hover:bg-green-400 cursor-pointer" disabled={loading}>
+            <Button
+              title="Salvar dados"
+              type="submit"
+              className="bg-green-500 hover:bg-green-400 cursor-pointer"
+              disabled={loading || disabled}
+            >
               {loading ? "Salvando.." : "Salvar"}
             </Button>
           </DialogFooter>
-        </DialogContent>
-      </form>
+        </form>
+      </DialogContent>
     </ModalCustom>
   );
 }

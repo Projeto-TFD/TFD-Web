@@ -10,8 +10,10 @@ export type VeiculosType = {
   status: string;
 };
 
+export type VeiculoIdType = number;
+
 export type VeiculoType = {
-  id: number;
+  id: VeiculoIdType;
   nome: string;
   placa: string;
   ano: number;

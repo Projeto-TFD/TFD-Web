@@ -10,21 +10,22 @@ import { Button } from "@/components/ui/button";
 import { useMemo } from "react";
 import { Plus } from "lucide-react";
 import EmptyCustom from "@/src/components/ui/Empty";
+import { FormProvider } from "react-hook-form";
 
 export default function VeiculosPage() {
   const {
-    handleSubmit,
+    onSubmit,
     handleDelete,
     isModalOpen,
     setIsModalOpen,
     handleOpenEdit,
     handleOpenAdd,
-    formData,
-    setFormData,
-    editingVehicle,
+    form,
     isLoading,
     isError,
     data,
+    createVeiculoMutation,
+    editingVeiculo,
   } = useVeiculos();
 
   const columns = useMemo(
@@ -37,53 +38,53 @@ export default function VeiculosPage() {
   );
 
   return (
-    <div className="flex flex-col gap-8">
-      <div className="flex justify-between">
-        <h1 className="text-2xl font-bold text-slate-800">Veículos Cadastrados</h1>
+    <FormProvider {...form}>
+      <div className="flex flex-col gap-8">
+        <div className="flex justify-between">
+          <h1 className="text-2xl font-bold text-slate-800">Veículos Cadastrados</h1>
 
-        <Button
-          className="bg-blue-700 hover:bg-blue-600 cursor-pointer p-3"
-          title="Adicionar novo veiculo"
-          size={"lg"}
-          onClick={handleOpenAdd}
-        >
-          <Plus size={18} /> Novo Veiculo
-        </Button>
-      </div>
-
-      {isError ? (
-        <div className="my-10">
-          <EmptyCustom isError />
+          <Button
+            className="bg-blue-700 hover:bg-blue-600 cursor-pointer p-3"
+            title="Adicionar novo veiculo"
+            size={"lg"}
+            onClick={handleOpenAdd}
+          >
+            <Plus size={18} /> Novo Veiculo
+          </Button>
         </div>
-      ) : (
-        <DataTable
-          columns={columns}
-          data={data || []}
-          isLoading={isLoading}
-          searchPlaceholder="Pesquisar veiculos..."
-          statusFilter={{
-            column: "tipo",
-            options: [
-              { label: "Proprio", value: TipoVeiculo.Proprio },
-              { label: "Locado", value: TipoVeiculo.Locado },
-            ],
-          }}
-        />
-      )}
 
-      <FormModal
-        open={isModalOpen}
-        onOpenChange={setIsModalOpen}
-        onSubmit={handleSubmit}
-        title={editingVehicle ? "Editar Veículo" : "Novo Veículo"}
-        size="lg"
-      >
-        <VeiculoFields
-          formData={formData}
-          editingVehicle={editingVehicle !== null}
-          handleChangeFormData={(data) => setFormData(data)}
-        />
-      </FormModal>
-    </div>
+        {isError ? (
+          <div className="my-10">
+            <EmptyCustom isError />
+          </div>
+        ) : (
+          <DataTable
+            columns={columns}
+            data={data || []}
+            isLoading={isLoading}
+            searchPlaceholder="Pesquisar veiculos..."
+            statusFilter={{
+              column: "tipo",
+              options: [
+                { label: "Proprio", value: TipoVeiculo.Proprio },
+                { label: "Locado", value: TipoVeiculo.Locado },
+              ],
+            }}
+          />
+        )}
+
+        <FormModal
+          open={isModalOpen}
+          onOpenChange={setIsModalOpen}
+          onSubmit={form.handleSubmit(onSubmit)}
+          title={editingVeiculo ? "Editar Veículo" : "Novo Veículo"}
+          size="xl"
+          loading={createVeiculoMutation.isPending}
+          disabled={editingVeiculo ? !form.formState.isDirty : false}
+        >
+          <VeiculoFields />
+        </FormModal>
+      </div>
+    </FormProvider>
   );
 }

@@ -30,10 +30,6 @@ export default function useLogin() {
       return await AuthRequests.login(data);
     },
     onSuccess: (data) => {
-      if (data.user.role !== RoleUser.Admin) {
-        throw new Error();
-      }
-
       setCookie("token", data.accessToken, { path: "/", maxAge: data.expiresIn });
       queryClient.setQueryData(["me"], data.user);
 

@@ -1,4 +1,4 @@
-import { CreateVeiculoType, EditVeiculoType, VeiculoType } from "@/src/types/veiculos.types";
+import { CreateVeiculoType, EditVeiculoType, VeiculoIdType, VeiculoType } from "@/src/types/veiculos.types";
 import { provider } from "../provider";
 
 export class VeiculoRequests {
@@ -10,7 +10,7 @@ export class VeiculoRequests {
     return data;
   }
 
-  static async getById(id: Pick<VeiculoType, "id">): Promise<VeiculoType> {
+  static async getById(id: VeiculoIdType): Promise<VeiculoType> {
     const { data } = await provider.get(`${this.BASE_ROUTE}/${id}`);
 
     return data;
@@ -22,19 +22,13 @@ export class VeiculoRequests {
     return data;
   }
 
-  static async edit({
-    id,
-    dataEdit,
-  }: {
-    id: Pick<VeiculoType, "id">;
-    dataEdit: EditVeiculoType;
-  }): Promise<VeiculoType> {
+  static async edit({ id, dataEdit }: { id: VeiculoIdType; dataEdit: EditVeiculoType }): Promise<VeiculoType> {
     const { data } = await provider.patch(`${this.BASE_ROUTE}/${id}`, dataEdit);
 
     return data;
   }
 
-  static async delete(id: Pick<VeiculoType, "id">): Promise<void> {
+  static async delete(id: VeiculoIdType): Promise<void> {
     const { data } = await provider.delete(`${this.BASE_ROUTE}/${id}`);
 
     return data;

@@ -2,50 +2,114 @@
 
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { VeiculosType as VeiculoType } from "@/src/types/veiculos.types";
+import { TipoVeiculo } from "@/src/types/veiculos.types";
+import { Controller, useFormContext } from "react-hook-form";
+import { VeiculoFormData } from "../useVeiculos";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 
-interface VeiculoFieldsProps {
-  formData: Omit<VeiculoType, "id">;
-  editingVehicle: boolean;
-  handleChangeFormData: (data: Omit<VeiculoType, "id">) => void;
-}
+export default function VeiculoFields() {
+  const {
+    register,
+    control,
+    formState: { errors },
+  } = useFormContext<VeiculoFormData>();
 
-export default function VeiculoFields({ formData, handleChangeFormData }: VeiculoFieldsProps) {
   return (
-    <>
-      <div>
-        <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Placa</label>
+    <section className="flex flex-col gap-3">
+      <Field>
+        <FieldLabel>
+          Nome <span className="text-destructive">*</span>
+        </FieldLabel>
+
         <Input
           required
-          className="bg-muted/40 py-5 px-2 focus-visible:ring-2 focus-visible:ring-blue-500"
-          value={formData.name}
-          onChange={(e) => handleChangeFormData({ ...formData, name: e.target.value.toUpperCase() })}
+          className="bg-muted/40 py-5 px-2"
+          placeholder="Preencha aqui"
+          {...register("nome")}
+          aria-invalid={!!errors.nome}
         />
-      </div>
-      <div>
-        <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Modelo / Detalhes</label>
+
+        <FieldError errors={[errors.nome]} />
+      </Field>
+
+      <Field>
+        <FieldLabel>
+          Placa <span className="text-destructive">*</span>
+        </FieldLabel>
+
         <Input
           required
-          className="bg-muted/40 py-5 px-2 focus-visible:ring-2 focus-visible:ring-blue-500"
-          value={formData.sub}
-          onChange={(e) => handleChangeFormData({ ...formData, sub: e.target.value })}
+          className="bg-muted/40 py-5 px-2 uppercase"
+          placeholder="Preencha aqui"
+          {...register("placa", {
+            setValueAs: (value) => value?.toUpperCase(),
+          })}
+          aria-invalid={!!errors.placa}
         />
-      </div>
-      <div>
-        <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Status</label>
-        <Select
-          value={formData.status}
-          onValueChange={(tp: string) => handleChangeFormData({ ...formData, status: tp })}
-        >
-          <SelectTrigger className="w-full bg-muted/20 py-5" aria-label="Status do Veiculo">
-            <SelectValue placeholder={"Ativo"} />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value={"Ativo"}>Ativo</SelectItem>
-            <SelectItem value={"Inativo"}>Inativo</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-    </>
+
+        <FieldError errors={[errors.placa]} />
+      </Field>
+
+      <Field>
+        <FieldLabel>
+          Número do Renavam <span className="text-destructive">*</span>
+        </FieldLabel>
+
+        <Input
+          required
+          className="bg-muted/40 py-5 px-2"
+          placeholder="Preencha aqui"
+          {...register("renavam")}
+          aria-invalid={!!errors.renavam}
+        />
+
+        <FieldError errors={[errors.renavam]} />
+      </Field>
+
+      <Field>
+        <FieldLabel>
+          Ano <span className="text-destructive">*</span>
+        </FieldLabel>
+
+        <Input
+          required
+          className="bg-muted/40 py-5 px-2 flex items-center"
+          placeholder="Preencha o ano"
+          type="number"
+          inputMode="numeric"
+          pattern="[0-9]*"
+          {...register("ano", { valueAsNumber: true })}
+          aria-invalid={!!errors.ano}
+        />
+
+        <FieldError errors={[errors.ano]} />
+      </Field>
+
+      <Controller
+        name="tipo"
+        control={control}
+        render={({ field, fieldState }) => (
+          <Field>
+            <FieldLabel>
+              Tipo <span className="text-destructive">*</span>
+            </FieldLabel>
+
+            <Select value={field.value ?? ""} onValueChange={field.onChange}>
+              <SelectTrigger className="w-full bg-muted/40 py-5" aria-invalid={fieldState.invalid}>
+                <SelectValue placeholder="Selecione o tipo" />
+              </SelectTrigger>
+
+              <SelectContent>
+                <SelectItem value={TipoVeiculo.Proprio}>Próprio</SelectItem>
+
+                <SelectItem value={TipoVeiculo.Locado}>Locado</SelectItem>
+              </SelectContent>
+            </Select>
+
+            <FieldError errors={[fieldState.error]} />
+          </Field>
+        )}
+      />
+    </section>
   );
 }

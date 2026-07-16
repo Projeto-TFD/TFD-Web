@@ -47,12 +47,24 @@ export default function getVehicleColumns({ onEdit, onDelete }: VehicleColumnsPr
       cell: ({ row }) => {
         return (
           <div className="flex gap-2">
-            <Button size="icon" variant="ghost" onClick={() => onEdit(row.original)}>
-              <Pencil className="size-4" />
+            <Button
+              title="Editar item"
+              className="cursor-pointer"
+              size="icon"
+              variant="ghost"
+              onClick={() => onEdit(row.original)}
+            >
+              <Pencil className="size-4 text-slate-600" />
             </Button>
 
-            <Button size="icon" variant="ghost" onClick={() => onDelete(row.original)}>
-              <Trash2 className="size-4" />
+            <Button
+              title="Excluir item"
+              className="cursor-pointer"
+              size="icon"
+              variant="ghost"
+              onClick={() => onDelete(row.original)}
+            >
+              <Trash2 className="size-4 text-destructive/70" />
             </Button>
           </div>
         );

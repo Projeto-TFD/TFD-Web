@@ -13,14 +13,13 @@ interface FormPassageiroProps {
 }
 
 export default function FormPassageiro({
-  handleSubmit,
   formData,
   handleChangeFormData,
   editingPassenger,
   handleOpenModal,
 }: FormPassageiroProps) {
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <>
       <div>
         <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Nome Completo</label>
         <input
@@ -65,6 +64,6 @@ export default function FormPassageiro({
           {editingPassenger ? "Salvar Alterações" : "Cadastrar"}
         </button>
       </div>
-    </form>
+    </>
   );
 }
