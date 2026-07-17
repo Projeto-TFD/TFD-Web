@@ -1,13 +1,13 @@
 "use client";
 
-import { LoginRequest, RoleUser } from "@/src/types/auth.types";
+import { LoginRequest } from "@/src/types/auth.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { setCookie } from "cookies-next/client";
 import { AuthRequests } from "@/src/services/api/auth/authRequests";
 import { useForm } from "react-hook-form";
-import { Rotas } from "@/src/components/layout/sidebar/useSidebar";
+import { Rotas } from "@/src/constants/route.constants";
 
 interface LoginForm {
   email: string;

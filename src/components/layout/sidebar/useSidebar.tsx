@@ -1,20 +1,14 @@
 "use client";
 
+import { Rotas } from "@/src/constants/route.constants";
 import useAuth from "@/src/hooks/useAuth";
 import { LayoutDashboard, Users, User, Bus } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 
-export enum Rotas {
-  Dashboard = "/",
-  Veiculos = "/veiculos",
-  Motoristas = "/motoristas",
-  Passageiros = "/passageiros",
-}
-
 export default function useSidebar() {
   const router = useRouter();
   const pathname = usePathname();
-  const { user, loading } = useAuth();
+  const { loading } = useAuth();
 
   const menuItems = [
     { id: "dashboard", label: "Dashboard", icon: LayoutDashboard, path: Rotas.Dashboard },
@@ -23,5 +17,5 @@ export default function useSidebar() {
     { id: "passengers", label: "Passageiros", icon: Users, path: Rotas.Passageiros },
   ] as const;
 
-  return { menuItems, router, user, loading, pathname };
+  return { menuItems, router, loading, pathname };
 }

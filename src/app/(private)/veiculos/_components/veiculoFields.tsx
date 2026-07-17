@@ -44,6 +44,7 @@ export default function VeiculoFields() {
           {...register("placa", {
             setValueAs: (value) => value?.toUpperCase(),
           })}
+          maxLength={8}
           aria-invalid={!!errors.placa}
         />
 
@@ -61,6 +62,7 @@ export default function VeiculoFields() {
           placeholder="Preencha aqui"
           {...register("renavam")}
           aria-invalid={!!errors.renavam}
+          maxLength={11}
         />
 
         <FieldError errors={[errors.renavam]} />
