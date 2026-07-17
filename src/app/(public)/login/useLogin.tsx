@@ -1,13 +1,15 @@
 "use client";
 
-import { LoginRequest, RoleUser } from "@/src/types/auth.types";
+import { LoginRequest } from "@/src/types/auth.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { setCookie } from "cookies-next/client";
 import { AuthRequests } from "@/src/services/api/auth/authRequests";
 import { useForm } from "react-hook-form";
-import { Rotas } from "@/src/components/layout/sidebar/useSidebar";
+import { Rotas } from "@/src/constants/route.constants";
+import { queryKeys } from "@/src/constants/query-keys.constants";
+import { authConstants } from "@/src/constants/auth.constants";
 
 interface LoginForm {
   email: string;
@@ -30,8 +32,8 @@ export default function useLogin() {
       return await AuthRequests.login(data);
     },
     onSuccess: (data) => {
-      setCookie("token", data.accessToken, { path: "/", maxAge: data.expiresIn });
-      queryClient.setQueryData(["me"], data.user);
+      setCookie(authConstants.NAME_TOKEN_IN_STORAGE, data.accessToken, { path: "/", maxAge: data.expiresIn });
+      queryClient.setQueryData(queryKeys.USER_LOGADO, data.user);
 
       router.replace(Rotas.Dashboard);
 

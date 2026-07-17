@@ -2,11 +2,12 @@
 
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Bus, UserCircle } from "lucide-react";
+import { Bus } from "lucide-react";
 import useSidebar from "./useSidebar";
+import ProfileSettings from "./components/ProfileSettings";
 
 const Sidebar = () => {
-  const { menuItems, router, user, loading, pathname } = useSidebar();
+  const { menuItems, router, loading, pathname } = useSidebar();
 
   return (
     <aside className="w-64 bg-[#1e2d4a] text-slate-300 flex flex-col">
@@ -36,14 +37,7 @@ const Sidebar = () => {
       <div className="mt-auto px-3 pb-6">
         <Separator className="mb-4 bg-slate-700" />
 
-        {loading ? (
-          <Skeleton className="bg-blue-800 h-8 rounded-full" />
-        ) : (
-          <div className="flex items-center gap-2 bg-blue-800 px-3 py-2 rounded-full cursor-pointer hover:bg-blue-700 transition-colors">
-            <UserCircle size={24} />
-            <span className="text-xs font-medium">{user?.nome}</span>
-          </div>
-        )}
+        {loading ? <Skeleton className="bg-blue-800 h-8 rounded-full" /> : <ProfileSettings />}
       </div>
     </aside>
   );
