@@ -5,7 +5,7 @@ interface StatCardProps {
   value: string;
   subValue: string;
   icon: ReactNode;
-  trend: string;
+  trend?: string;
 }
 
 export default function StatCard({ label, value, subValue, icon, trend = "neutral" }: StatCardProps) {

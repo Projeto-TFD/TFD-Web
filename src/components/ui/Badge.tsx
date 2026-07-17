@@ -1,12 +1,8 @@
 import { ReactNode } from "react";
 
-const Badge = ({
-  children,
-  variant = "default",
-}: {
-  children: ReactNode;
-  variant: "success" | "warning" | "danger" | "info" | "default";
-}) => {
+export type BadgeVariant = "success" | "warning" | "danger" | "info" | "default";
+
+export default function Badge({ children, variant = "default" }: { children: ReactNode; variant: BadgeVariant }) {
   const styles = {
     success: "bg-green-100 text-green-700",
     warning: "bg-orange-100 text-orange-700",
@@ -20,6 +16,4 @@ const Badge = ({
       {children}
     </span>
   );
-};
-
-export default Badge;
+}

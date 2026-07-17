@@ -1,18 +1,13 @@
 "use client";
 
-import { LayoutDashboard, Users, User, Bus } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
-
-const menuItems = [
-  { id: "dashboard", label: "Dashboard", icon: LayoutDashboard, path: "/" },
-  { id: "vehicles", label: "Veículos", icon: Bus, path: "/veiculos" },
-  { id: "drivers", label: "Motoristas", icon: User, path: "/motoristas" },
-  { id: "passengers", label: "Passageiros", icon: Users, path: "/passageiros" },
-] as const;
+import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Bus } from "lucide-react";
+import useSidebar from "./useSidebar";
+import ProfileSettings from "./components/ProfileSettings";
 
 const Sidebar = () => {
-  const router = useRouter();
-  const pathname = usePathname();
+  const { menuItems, router, loading, pathname } = useSidebar();
 
   return (
     <aside className="w-64 bg-[#1e2d4a] text-slate-300 flex flex-col">
@@ -38,6 +33,12 @@ const Sidebar = () => {
           );
         })}
       </nav>
+
+      <div className="mt-auto px-3 pb-6">
+        <Separator className="mb-4 bg-slate-700" />
+
+        {loading ? <Skeleton className="bg-blue-800 h-8 rounded-full" /> : <ProfileSettings />}
+      </div>
     </aside>
   );
 };

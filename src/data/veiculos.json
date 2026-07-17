@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "PBR-2341",
+    "sub": "Ônibus — Mercedes-Benz OF 1721 · Ano: 2018 · Cap: 42 lugares",
+    "status": "Ativo"
+  },
+  {
+    "id": 2,
+    "name": "MRZ-1190",
+    "sub": "Van — Sprinter 415 · Ano: 2021 · Cap: 16 lugares",
+    "status": "Ativo"
+  },
+  {
+    "id": 3,
+    "name": "JOA-5512",
+    "sub": "Van — Sprinter 415 · Ano: 2019 · Cap: 16 lugares",
+    "status": "Manutenção"
+  },
+  {
+    "id": 4,
+    "name": "SOA-8834",
+    "sub": "Ônibus — Volkswagen 17.230 · Ano: 2015 · Cap: 38 lugares",
+    "status": "Inativo"
+  }
+]

@@ -1,0 +1,28 @@
+export enum TipoVeiculo {
+  Proprio = "PROPRIO",
+  Locado = "LOCADO",
+}
+
+export type VeiculosType = {
+  id: number;
+  name: string;
+  sub: string;
+  status: string;
+};
+
+export type VeiculoIdType = number;
+
+export type VeiculoType = {
+  id: VeiculoIdType;
+  nome: string;
+  placa: string;
+  ano: number;
+  renavam: string;
+  tipo: TipoVeiculo;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type CreateVeiculoType = Omit<VeiculoType, "id" | "createdAt" | "updatedAt">;
+
+export type EditVeiculoType = Partial<CreateVeiculoType>;
