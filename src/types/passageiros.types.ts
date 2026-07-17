@@ -10,12 +10,12 @@ export type PassageiroIdType = number;
 export type PassageiroType = {
   id: PassageiroIdType;
   nome: string;
-  cpf: string;
-  cartaoSus: string;
-  dataNascimento: string;
-  telefone: string;
-  endereco: string;
-  municipio: string;
+  cpf: string | null;
+  cartaoSus: string | null;
+  dataNascimento: string | null;
+  telefone: string | null;
+  endereco: string | null;
+  municipio: string | null;
   createdAt: string;
   updatedAt: string;
 };

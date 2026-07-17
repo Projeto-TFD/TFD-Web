@@ -1,13 +1,13 @@
 "use client";
 
-import { PassageirosType } from "@/src/types/passageiros.types";
+import { PassageirosType, PassageiroType } from "@/src/types/passageiros.types";
 import { BaseSyntheticEvent, useState } from "react";
 import PassageirosData from "@/src/data/passageiros.json";
 
 export default function usePassageiros() {
   const [passengers, setPassengers] = useState<PassageirosType[]>(PassageirosData);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingPassenger, setEditingPassenger] = useState<PassageirosType | null>(null);
+  const [editingPassenger, setEditingPassenger] = useState<PassageiroType | null>(null);
   const [formData, setFormData] = useState({ name: "", sub: "", status: "Ativo" });
 
   const handleOpenAdd = () => {
@@ -16,14 +16,14 @@ export default function usePassageiros() {
     setIsModalOpen(true);
   };
 
-  const handleOpenEdit = (passenger: PassageirosType) => {
+  const handleOpenEdit = (passenger: PassageiroType) => {
     setEditingPassenger(passenger);
-    setFormData({ name: passenger.name, sub: passenger.sub, status: passenger.status });
+    setFormData({ name: passenger.nome, sub: passenger.cartaoSus!, status: passenger.municipio! });
     setIsModalOpen(true);
   };
 
-  const handleDelete = (passenger: PassageirosType) => {
-    if (window.confirm(`Tem certeza que deseja excluir ${passenger.name}?`)) {
+  const handleDelete = (passenger: PassageiroType) => {
+    if (window.confirm(`Tem certeza que deseja excluir ${passenger.nome}?`)) {
       setPassengers(passengers.filter((p) => p.id !== passenger.id));
     }
   };
