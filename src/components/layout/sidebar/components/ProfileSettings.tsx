@@ -15,15 +15,20 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { deleteCookie } from "cookies-next/client";
 import { Rotas } from "@/src/constants/route.constants";
+import { useQueryClient } from "@tanstack/react-query";
+import { queryKeys } from "@/src/constants/query-keys.constants";
+import { authConstants } from "@/src/constants/auth.constants";
 
 export default function ProfileSettings() {
   const { user } = useAuth();
   const router = useRouter();
   const [isConfirmingLogout, setIsConfirmingLogout] = useState(false);
+  const queryClient = useQueryClient();
 
   const handleLogout = () => {
-    deleteCookie("token");
+    deleteCookie(authConstants.NAME_TOKEN_IN_STORAGE);
     setIsConfirmingLogout(false);
+    queryClient.removeQueries({ queryKey: queryKeys.USER_LOGADO });
 
     router.replace(Rotas.Login);
   };

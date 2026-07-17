@@ -2,7 +2,7 @@
 
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Bus, UserCircle } from "lucide-react";
+import { Bus } from "lucide-react";
 import useSidebar from "./useSidebar";
 import ProfileSettings from "./components/ProfileSettings";
 

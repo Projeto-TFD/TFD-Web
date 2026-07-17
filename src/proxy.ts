@@ -1,17 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
+import { authConstants } from "./constants/auth.constants";
+import { Rotas } from "./constants/route.constants";
 
 export default function proxy(request: NextRequest) {
   const path = request.nextUrl.pathname;
-  const token = request.cookies.get("token")?.value;
+  const token = request.cookies.get(authConstants.NAME_TOKEN_IN_STORAGE)?.value;
 
-  if (!token && path === "/login") {
+  if (!token && path === Rotas.Login) {
     return NextResponse.next();
   }
   if (!token) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    return NextResponse.redirect(new URL(Rotas.Login, request.url));
   }
-  if (token && path === "/login") {
-    return NextResponse.redirect(new URL("/", request.url));
+  if (token && path === Rotas.Login) {
+    return NextResponse.redirect(new URL(Rotas.Dashboard, request.url));
   }
   return NextResponse.next();
 }
