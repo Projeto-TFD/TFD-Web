@@ -2,7 +2,6 @@
 
 import EntityList from "@/src/components/layout/entity_list/EntityList";
 import Badge from "@/src/components/ui/Badge";
-import Modal from "@/src/components/ui/Modal";
 import FormPassageiro from "./_components/formPassageiro";
 import usePassageiros from "./usePassageiros";
 import randomColors from "@/src/utils/randomColors";
