@@ -1,5 +1,5 @@
 import { TipoVeiculo } from "@/src/types/veiculos.types";
-import z from "zod";
+import { z } from "zod";
 
 export const veiculoSchema = z.object({
   nome: z.string().min(3, "Informe o nome do veículo"),

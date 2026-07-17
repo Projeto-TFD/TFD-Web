@@ -18,7 +18,7 @@ export default function useVeiculos() {
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const form = useForm<VeiculoFormData>({
-    resolver: zodResolver(veiculoSchema as any),
+    resolver: zodResolver(veiculoSchema),
 
     defaultValues: {
       nome: "",
