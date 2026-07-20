@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "nome": "João da Silva",
+    "cpf": "12345678901",
+    "cartaoSus": "700100000001111",
+    "dataNascimento": "1985-03-15",
+    "telefone": "(11) 99876-1234",
+    "endereco": "Rua das Flores, 120",
+    "municipio": "São Paulo",
+    "createdAt": "2026-07-01T08:30:00Z",
+    "updatedAt": "2026-07-01T08:30:00Z"
+  },
+  {
+    "id": 2,
+    "nome": "Maria Oliveira",
+    "cpf": "23456789012",
+    "cartaoSus": "700100000002222",
+    "dataNascimento": "1992-11-08",
+    "telefone": "(31) 98765-4321",
+    "endereco": "Av. Brasil, 450",
+    "municipio": "Belo Horizonte",
+    "createdAt": "2026-07-02T09:15:00Z",
+    "updatedAt": "2026-07-02T09:15:00Z"
+  },
+  {
+    "id": 3,
+    "nome": "Carlos Henrique Souza",
+    "cpf": "34567890123",
+    "cartaoSus": "700100000003333",
+    "dataNascimento": "1978-06-21",
+    "telefone": "(41) 99123-4567",
+    "endereco": "Rua Paraná, 89",
+    "municipio": "Curitiba",
+    "createdAt": "2026-07-03T10:00:00Z",
+    "updatedAt": "2026-07-03T10:00:00Z"
+  },
+  {
+    "id": 4,
+    "nome": "Ana Beatriz Lima",
+    "cpf": "45678901234",
+    "cartaoSus": "700100000004444",
+    "dataNascimento": "2000-01-30",
+    "telefone": "(62) 99911-2233",
+    "endereco": "Rua Goiás, 510",
+    "municipio": "Goiânia",
+    "createdAt": "2026-07-04T14:20:00Z",
+    "updatedAt": "2026-07-04T14:20:00Z"
+  },
+  {
+    "id": 5,
+    "nome": "Fernanda Costa",
+    "cpf": "56789012345",
+    "cartaoSus": "700100000005555",
+    "dataNascimento": "1995-09-12",
+    "telefone": "(81) 98877-6655",
+    "endereco": "Rua Boa Vista, 75",
+    "municipio": "Recife",
+    "createdAt": "2026-07-05T11:45:00Z",
+    "updatedAt": "2026-07-05T11:45:00Z"
+  },
+  {
+    "id": 6,
+    "nome": "Ricardo Almeida",
+    "cpf": "67890123456",
+    "cartaoSus": "700100000006666",
+    "dataNascimento": "1989-12-05",
+    "telefone": "(85) 99754-3322",
+    "endereco": null,
+    "municipio": "Fortaleza",
+    "createdAt": "2026-07-06T16:10:00Z",
+    "updatedAt": "2026-07-06T16:10:00Z"
+  }
+]

@@ -9,7 +9,7 @@ import { VeiculoFormData, veiculoSchema } from "../_schemas/veiculoSchema";
 import { useVeiculosQuery } from "@/src/app/(private)/veiculos/hooks/useVeiculosQuery";
 import { useCreateVeiculo } from "@/src/app/(private)/veiculos/hooks/useCreateVeiculo";
 import { useEditVeiculo } from "@/src/app/(private)/veiculos/hooks/useEditVeiculo";
-import { useDeleteVeiculo } from "@/src/app/(private)/veiculos/hooks/useDeletVeiculo";
+import { useDeleteVeiculo } from "@/src/app/(private)/veiculos/hooks/useDeleteVeiculo";
 
 export default function useVeiculos() {
   const [isModalOpen, setIsModalOpen] = useState(false);
