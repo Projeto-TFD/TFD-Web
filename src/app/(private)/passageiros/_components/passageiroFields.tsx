@@ -1,44 +1,115 @@
 "use client";
 
-import { PassageirosType } from "@/src/types/passageiros.types";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { useFormContext } from "react-hook-form";
+import { PassageiroFormData } from "../_schemas/passageiroSchema";
 
-interface FormPassageiroProps {
-  formData: Omit<PassageirosType, "id">;
-  handleChangeFormData: (data: Omit<PassageirosType, "id">) => void;
-}
+export default function PassageiroFields() {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<PassageiroFormData>();
 
-export default function PassageiroFields({ formData, handleChangeFormData }: FormPassageiroProps) {
   return (
-    <>
-      <div>
-        <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Nome Completo</label>
-        <input
-          required
-          className="w-full p-2 border border-slate-200 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500"
-          value={formData.name}
-          onChange={(e) => handleChangeFormData({ ...formData, name: e.target.value })}
-        />
+    <section className="flex gap-5">
+      <div className="flex flex-col flex-1 gap-3">
+        <Field>
+          <FieldLabel>
+            Nome <span className="text-destructive">*</span>
+          </FieldLabel>
+
+          <Input
+            required
+            autoComplete="name"
+            className="bg-muted/40 py-5 px-2"
+            placeholder="Preencha aqui"
+            {...register("nome")}
+          />
+
+          <FieldError errors={[errors.nome]} />
+        </Field>
+
+        <Field>
+          <FieldLabel>CPF</FieldLabel>
+
+          <Input maxLength={11} className="bg-muted/40 py-5 px-2" placeholder="Preencha aqui" {...register("cpf")} />
+
+          <FieldError errors={[errors.cpf]} />
+        </Field>
+
+        <Field>
+          <FieldLabel>Cartão SUS</FieldLabel>
+
+          <Input
+            maxLength={15}
+            className="bg-muted/40 py-5 px-2"
+            placeholder="Preencha aqui"
+            {...register("cartaoSus")}
+          />
+
+          <FieldError errors={[errors.cartaoSus]} />
+        </Field>
+
+        <Field>
+          <FieldLabel>Data de Nascimento</FieldLabel>
+
+          <Input
+            type="date"
+            max={new Date().toISOString().split("T")[0]}
+            autoComplete="bday"
+            className="bg-muted/40 h-11 px-3"
+            placeholder="Preencha aqui"
+            {...register("dataNascimento")}
+          />
+
+          <FieldError errors={[errors.dataNascimento]} />
+        </Field>
       </div>
-      <div>
-        <label className="block text-xs font-bold text-slate-500 uppercase mb-1">CPF / Cartão SUS</label>
-        <input
-          required
-          className="w-full p-2 border border-slate-200 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500"
-          value={formData.sub}
-          onChange={(e) => handleChangeFormData({ ...formData, sub: e.target.value })}
-        />
+
+      <div className="flex flex-col flex-1 gap-3">
+        <Field>
+          <FieldLabel>Telefone</FieldLabel>
+
+          <Input
+            type="tel"
+            maxLength={11}
+            autoComplete="tel"
+            className="bg-muted/40 py-5 px-2"
+            placeholder="Preencha aqui"
+            {...register("telefone")}
+          />
+
+          <FieldError errors={[errors.telefone]} />
+        </Field>
+
+        <Field>
+          <FieldLabel>Município</FieldLabel>
+
+          <Input
+            maxLength={50}
+            autoComplete="city"
+            className="bg-muted/40 py-5 px-2"
+            placeholder="Preencha aqui"
+            {...register("municipio")}
+          />
+
+          <FieldError errors={[errors.municipio]} />
+        </Field>
+
+        <Field>
+          <FieldLabel>Endereço</FieldLabel>
+
+          <Input
+            autoComplete="street-address"
+            className="bg-muted/40 py-5 px-2"
+            placeholder="Preencha aqui"
+            {...register("endereco")}
+          />
+
+          <FieldError errors={[errors.endereco]} />
+        </Field>
       </div>
-      <div>
-        <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Status</label>
-        <select
-          className="w-full p-2 border border-slate-200 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500"
-          value={formData.status}
-          onChange={(e) => handleChangeFormData({ ...formData, status: e.target.value })}
-        >
-          <option value="Ativo">Ativo</option>
-          <option value="Inativo">Inativo</option>
-        </select>
-      </div>
-    </>
+    </section>
   );
 }

@@ -35,7 +35,8 @@ export default function getPassageiroColumns({
     {
       accessorKey: "dataNascimento",
       header: "Data de Nascimento",
-      cell: ({ row }) => row.original.dataNascimento || "-",
+      cell: ({ row }) =>
+        row.original.dataNascimento ? new Date(row.original.dataNascimento).toLocaleDateString("pt-BR") : "-",
     },
 
     {
