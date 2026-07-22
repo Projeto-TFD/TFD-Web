@@ -78,6 +78,7 @@ export default function PassageirosPage() {
           title={isEditing ? "Editar Passageiro" : "Novo Passageiro"}
           size="xl"
           className="sm:max-w-1/2"
+          disabled={isEditing ? !form.formState.isDirty : false}
         >
           <PassageiroFields />
         </FormModal>
