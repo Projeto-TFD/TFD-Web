@@ -3,13 +3,13 @@
 import { useState } from "react";
 import { VeiculoType } from "@/src/types/veiculos.types";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { VeiculoFormData, veiculoSchema } from "../_schemas/veiculoSchema";
 import { useVeiculosQuery } from "@/src/app/(private)/veiculos/hooks/useVeiculosQuery";
 import { useCreateVeiculo } from "@/src/app/(private)/veiculos/hooks/useCreateVeiculo";
 import { useEditVeiculo } from "@/src/app/(private)/veiculos/hooks/useEditVeiculo";
 import { useDeleteVeiculo } from "@/src/app/(private)/veiculos/hooks/useDeleteVeiculo";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function useVeiculos() {
   const [isModalOpen, setIsModalOpen] = useState(false);
