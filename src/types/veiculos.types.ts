@@ -3,13 +3,6 @@ export enum TipoVeiculo {
   Locado = "LOCADO",
 }
 
-export type VeiculosType = {
-  id: number;
-  name: string;
-  sub: string;
-  status: string;
-};
-
 export type VeiculoIdType = number;
 
 export type VeiculoType = {

@@ -73,7 +73,7 @@ export default function DataTable<TData, TValue>({
 
       <div className="rounded-md border bg-card">
         <Table>
-          <TableHeader className="bg-muted/60 border-b">
+          <TableHeader className="bg-muted/70 border-b">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
@@ -100,7 +100,7 @@ export default function DataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() ? "selected" : undefined}
-                  className={index % 2 === 0 ? "bg-background" : "bg-muted/30"}
+                  className={`${index % 2 === 0 ? "bg-background hover:bg-muted/50" : "bg-sky-50 hover:bg-sky-100"} text-slate-900`}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>

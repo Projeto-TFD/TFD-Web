@@ -20,6 +20,7 @@ interface FormModalProps {
   loading?: boolean;
   disabled?: boolean;
   size?: "sm" | "md" | "lg" | "xl";
+  className?: string;
 }
 
 export default function FormModal({
@@ -32,6 +33,7 @@ export default function FormModal({
   loading = false,
   size = "md",
   disabled = false,
+  className,
 }: FormModalProps) {
   const dialogSize = {
     sm: "sm:max-w-sm",
@@ -42,10 +44,10 @@ export default function FormModal({
 
   return (
     <ModalCustom open={open} onOpenChange={onOpenChange}>
-      <DialogContent className={dialogSize[size]}>
+      <DialogContent className={`${dialogSize[size]} ${className}`}>
         <form onSubmit={onSubmit}>
           <DialogHeader className="mb-3">
-            <DialogTitle className={`text-${size}`}>{title}</DialogTitle>
+            <DialogTitle className={`text-${size} font-heading`}>{title}</DialogTitle>
             <DialogDescription>{description}</DialogDescription>
           </DialogHeader>
 
