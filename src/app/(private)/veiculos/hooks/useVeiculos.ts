@@ -105,5 +105,6 @@ export default function useVeiculos() {
     deleteVeiculoMutation,
     onSubmitDelete,
     veiculoSelecionado,
+    editVeiculoMutation,
   };
 }
