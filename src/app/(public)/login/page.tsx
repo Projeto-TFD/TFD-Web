@@ -1,6 +1,9 @@
 "use client";
 
+import { Field, FieldLabel } from "@/components/ui/field";
 import useLogin from "./useLogin";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 export default function Login() {
   const { form, onSubmit, loginMutation } = useLogin();
@@ -13,45 +16,43 @@ export default function Login() {
             <h1 className="text-3xl font-bold text-slate-800 text-center mb-8">Login</h1>
 
             <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)}>
-              <div>
-                <label htmlFor="email" className="block text-xs font-bold text-slate-500 uppercase mb-1">
-                  E-mail
-                </label>
+              <Field>
+                <FieldLabel>
+                  E-mail <span className="text-destructive">*</span>
+                </FieldLabel>
 
-                <input
-                  id="email"
+                <Input
+                  required
                   type="email"
                   autoComplete="email"
+                  className="bg-background py-5 px-2"
                   placeholder="seu@email.com"
-                  className="w-full bg-background px-4 py-2.5 border border-slate-200 rounded-md outline-none focus:ring-2 focus:ring-blue-500"
-                  required
                   {...form.register("email")}
                 />
-              </div>
+              </Field>
 
-              <div>
-                <label htmlFor="password" className="block text-xs font-bold text-slate-500 uppercase mb-1">
-                  Senha
-                </label>
+              <Field>
+                <FieldLabel>
+                  Senha <span className="text-destructive">*</span>
+                </FieldLabel>
 
-                <input
-                  id="password"
+                <Input
+                  required
                   type="password"
                   autoComplete="current-password"
-                  placeholder="Digite sua senha"
-                  className="w-full bg-background px-4 py-2.5 border border-slate-200 rounded-md outline-none focus:ring-2 focus:ring-blue-500"
-                  required
+                  className="bg-background py-5 px-2"
+                  placeholder="digite sua senha"
                   {...form.register("password")}
                 />
-              </div>
+              </Field>
 
-              <button
+              <Button
                 type="submit"
-                className="w-full rounded-md bg-blue-700 px-4 py-3 font-medium text-white transition hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                className="w-full rounded-md bg-blue-700 px-2 py-5 font-medium text-white transition hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                 disabled={loginMutation.isPending}
               >
                 {loginMutation.isPending ? "Entrando" : "Entrar"}
-              </button>
+              </Button>
             </form>
           </div>
         </div>

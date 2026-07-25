@@ -30,6 +30,8 @@ export default function PassageirosPage() {
     passageiroSelecionado,
     deletePassageiroMutation,
     setIsConfirmModalOpen,
+    createPassageiroMutation,
+    editPassageiroMutation,
   } = usePassageiros();
 
   const columns = useMemo(
@@ -49,7 +51,7 @@ export default function PassageirosPage() {
 
           <Button
             className="bg-blue-700 hover:bg-blue-600 cursor-pointer p-3"
-            title="Adicionar novo veiculo"
+            title="Adicionar novo passageiro"
             size={"lg"}
             onClick={handleOpenAdd}
           >
@@ -79,6 +81,7 @@ export default function PassageirosPage() {
           size="xl"
           className="sm:max-w-1/2"
           disabled={isEditing ? !form.formState.isDirty : false}
+          loading={isEditing ? editPassageiroMutation.isPending : createPassageiroMutation.isPending}
         >
           <PassageiroFields />
         </FormModal>

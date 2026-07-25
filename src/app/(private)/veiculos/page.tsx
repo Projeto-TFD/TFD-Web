@@ -32,6 +32,7 @@ export default function VeiculosPage() {
     onSubmitDelete,
     deleteVeiculoMutation,
     veiculoSelecionado,
+    editVeiculoMutation,
   } = useVeiculos();
 
   const columns = useMemo(
@@ -86,7 +87,7 @@ export default function VeiculosPage() {
           onSubmit={form.handleSubmit(onSubmit)}
           title={isEditing ? "Editar Veículo" : "Novo Veículo"}
           size="xl"
-          loading={createVeiculoMutation.isPending}
+          loading={isEditing ? editVeiculoMutation.isPending : createVeiculoMutation.isPending}
           disabled={isEditing ? !form.formState.isDirty : false}
         >
           <VeiculoFields />

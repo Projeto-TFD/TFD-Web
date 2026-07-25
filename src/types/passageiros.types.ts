@@ -1,10 +1,3 @@
-export type PassageirosType = {
-  id: number;
-  name: string;
-  sub: string;
-  status: string;
-};
-
 export type PassageiroIdType = number;
 
 export type PassageiroType = {

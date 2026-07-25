@@ -101,7 +101,7 @@ export default function usePassageiros() {
   const onSubmitDelete = async () => {
     if (!passageiroSelecionado) {
       setIsConfirmModalOpen(false);
-      toast.error("Nenhum veiculo selecionado");
+      toast.error("Nenhum passageiro selecionado");
 
       return;
     }
@@ -127,5 +127,7 @@ export default function usePassageiros() {
     passageiroSelecionado,
     deletePassageiroMutation,
     setIsConfirmModalOpen,
+    createPassageiroMutation,
+    editPassageiroMutation,
   };
 }
