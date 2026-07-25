@@ -39,7 +39,7 @@ export default function EmptyCustom({ title, description, content, size = "md", 
     icon: isError ? (
       <TriangleAlert className={`${current.icon} text-destructive`} />
     ) : (
-      <Inbox className={current.icon} />
+      <Inbox className={`${current.icon} text-muted-foreground`} />
     ),
     altText: isError ? "Ícone de erro" : "Ícone de vazio",
     defaultTitle: title || (isError ? "Ocorreu um erro" : "Nenhum resultado encontrado"),

@@ -32,7 +32,17 @@ export default function getMotoristaColumns({ onEdit, onDelete }: MotoristaColum
     {
       accessorKey: "validadeHabilitacao",
       header: "Validade da Habilitação",
-      cell: ({ row }) => new Date(row.original.validadeHabilitacao).toLocaleDateString("pt-BR"),
+      cell: ({ row }) => {
+        const validade = new Date(row.original.validadeHabilitacao);
+        const vencida = validade < new Date();
+
+        return (
+          <span className="flex gap-1">
+            <span className={vencida ? "line-through" : ""}>{validade.toLocaleDateString("pt-BR")}</span>
+            {vencida && <Badge variant="danger">Vencida</Badge>}
+          </span>
+        );
+      },
     },
 
     {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { MotoristaType, MotoristasType } from "@/src/types/motorista.types";
+import { MotoristaType } from "@/src/types/motorista.types";
 import { useMotoristasQuery } from "./useMotoristasQuery";
 import { useCreateMotorista } from "./useCreateMotorista";
 import { useEditMotorista } from "./useEditMotorista";
@@ -13,8 +13,9 @@ import { toast } from "sonner";
 
 export default function useMotoristas() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formData, setFormData] = useState<Omit<MotoristasType, "id">>({ name: "", sub: "", status: "Ativo" });
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
+
   const [motoristaSelecionado, setMotoristaSelecionado] = useState<null | MotoristaType>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
@@ -95,8 +96,6 @@ export default function useMotoristas() {
     onSubmit,
     handleOpenEdit,
     isModalOpen,
-    formData,
-    setFormData,
     setIsModalOpen,
     isEditing,
     isLoading,
@@ -110,5 +109,7 @@ export default function useMotoristas() {
     isConfirmModalOpen,
     setIsConfirmModalOpen,
     motoristaSelecionado,
+    isInfoModalOpen,
+    setIsInfoModalOpen,
   };
 }

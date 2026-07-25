@@ -1,10 +1,3 @@
-export type MotoristasType = {
-  id: number;
-  name: string;
-  sub: string;
-  status: string;
-};
-
 export type MotoristaIdType = number;
 
 export enum TipoVinculoMotorista {

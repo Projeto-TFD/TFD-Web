@@ -1,6 +1,10 @@
 import { CreateMotoristaType, EditMotoristaType, MotoristaIdType, MotoristaType } from "@/src/types/motorista.types";
 import { provider } from "../provider";
 
+export type ParametrosHabilitacoesVencendoRequest = {
+  dias: number;
+};
+
 export class MotoristaRequests {
   private static BASE_ROUTE = "/motoristas";
   private static MIN_DIAS_HABILITACAO_VENCENDO = 30;
@@ -19,9 +23,7 @@ export class MotoristaRequests {
 
   static async getHabilitacoesVencendo({
     dias = this.MIN_DIAS_HABILITACAO_VENCENDO,
-  }: {
-    dias: number;
-  }): Promise<MotoristaType[]> {
+  }: ParametrosHabilitacoesVencendoRequest): Promise<MotoristaType[]> {
     const { data } = await provider.get(`${this.BASE_ROUTE}/alertas/habilitacoes-vencendo`, {
       params: { dias },
     });
