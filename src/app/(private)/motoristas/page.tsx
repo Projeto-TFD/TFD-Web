@@ -14,12 +14,14 @@ import { FormProvider } from "react-hook-form";
 import ConfirmModal from "@/src/components/layout/modais/ConfirmModal";
 import InfoModal from "@/src/components/layout/modais/InfoModal";
 import HabilitacoesVencendoView from "./_components/habilitacoesVencendoView";
+import CreateMotoristaFields from "./_components/createMotoristaFields";
 
 export default function MotoristasPage() {
   const {
     handleDelete,
     handleOpenAdd,
-    onSubmit,
+    onEditSubmit,
+    onCreateSubmit,
     handleOpenEdit,
     isModalOpen,
     setIsModalOpen,
@@ -31,7 +33,8 @@ export default function MotoristasPage() {
     editMotoristaMutation,
     deleteMotoristaMutation,
     onSubmitDelete,
-    form,
+    baseForm,
+    createForm,
     isConfirmModalOpen,
     setIsConfirmModalOpen,
     motoristaSelecionado,
@@ -49,7 +52,7 @@ export default function MotoristasPage() {
   );
 
   return (
-    <FormProvider {...form}>
+    <>
       <div className="flex flex-col gap-8">
         <div className="flex justify-between">
           <h1 className="text-2xl font-bold text-slate-800">Motoristas Cadastrados</h1>
@@ -99,18 +102,36 @@ export default function MotoristasPage() {
         )}
       </div>
 
-      <FormModal
-        open={isModalOpen}
-        onOpenChange={setIsModalOpen}
-        title={isEditing ? "Editar Motorista" : "Novo Motorista"}
-        onSubmit={form.handleSubmit(onSubmit)}
-        size="xl"
-        className="sm:max-w-1/2"
-        disabled={isEditing ? !form.formState.isDirty : false}
-        loading={isEditing ? editMotoristaMutation.isPending : createMotoristaMutation.isPending}
-      >
-        <MotoristaFields />
-      </FormModal>
+      {isEditing ? (
+        <FormProvider {...baseForm}>
+          <FormModal
+            open={isModalOpen}
+            onOpenChange={setIsModalOpen}
+            title="Editar Motorista"
+            onSubmit={baseForm.handleSubmit(onEditSubmit)}
+            disabled={!baseForm.formState.isDirty}
+            loading={editMotoristaMutation.isPending}
+            size="xl"
+            className="sm:max-w-1/2"
+          >
+            <MotoristaFields />
+          </FormModal>
+        </FormProvider>
+      ) : (
+        <FormProvider {...createForm}>
+          <FormModal
+            open={isModalOpen}
+            onOpenChange={setIsModalOpen}
+            title="Novo Motorista"
+            onSubmit={createForm.handleSubmit(onCreateSubmit)}
+            loading={createMotoristaMutation.isPending}
+            size="xl"
+            className="sm:max-w-1/2"
+          >
+            <CreateMotoristaFields />
+          </FormModal>
+        </FormProvider>
+      )}
 
       <ConfirmModal
         title="Confirmação de exclusão"
@@ -135,6 +156,6 @@ export default function MotoristasPage() {
       >
         <HabilitacoesVencendoView />
       </InfoModal>
-    </FormProvider>
+    </>
   );
 }
