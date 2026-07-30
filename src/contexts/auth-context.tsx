@@ -1,10 +1,10 @@
 "use client";
 
 import { createContext } from "react";
-import { UserType } from "../types/auth.types";
+import { UsuarioType } from "../types/usuario.types";
 
 interface AuthContextType {
-  user: UserType | null;
+  user: UsuarioType | null;
   loading: boolean;
 }
 

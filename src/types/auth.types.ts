@@ -1,20 +1,10 @@
-export enum RoleUser {
-  Admin = "ADMIN",
-  Operador = "OPERADOR",
-}
-
-export type UserType = {
-  id: number;
-  nome: string;
-  email: string;
-  role: RoleUser;
-};
+import { RoleUsuario } from "./usuario.types";
 
 export type LoginResponse = {
   accessToken: string;
   expiresIn: number;
   tokenType: string;
-  user: UserType;
+  user: RoleUsuario;
 };
 
 export type LoginRequest = {
