@@ -7,9 +7,15 @@ import { useCreateMotorista } from "./useCreateMotorista";
 import { useEditMotorista } from "./useEditMotorista";
 import { useDeleteMotorista } from "./useDeleteMotorista";
 import { useForm } from "react-hook-form";
-import { MotoristaFormData, motoristaSchema } from "../_schemas/motoristaSchema";
+import {
+  CreateMotoristaFormData,
+  MotoristaFormData,
+  createMotoristaSchema,
+  motoristaBaseSchema,
+} from "../_schemas/motoristaSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
+import { RoleUsuario } from "@/src/types/usuario.types";
 
 export default function useMotoristas() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,8 +25,19 @@ export default function useMotoristas() {
   const [motoristaSelecionado, setMotoristaSelecionado] = useState<null | MotoristaType>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
-  const form = useForm<MotoristaFormData>({
-    resolver: zodResolver(motoristaSchema),
+  const baseForm = useForm<MotoristaFormData>({
+    resolver: zodResolver(motoristaBaseSchema),
+
+    defaultValues: {
+      cpf: "",
+      endereco: "",
+      renach: "",
+      validadeHabilitacao: "",
+    },
+  });
+
+  const createForm = useForm<CreateMotoristaFormData>({
+    resolver: zodResolver(createMotoristaSchema),
 
     defaultValues: {
       nome: "",
@@ -28,6 +45,8 @@ export default function useMotoristas() {
       endereco: "",
       renach: "",
       validadeHabilitacao: "",
+      email: "",
+      password: "",
     },
   });
 
@@ -40,12 +59,14 @@ export default function useMotoristas() {
   const deleteMotoristaMutation = useDeleteMotorista();
 
   const handleOpenAdd = () => {
-    form.reset({
+    createForm.reset({
       nome: "",
       cpf: "",
       endereco: "",
       renach: "",
       validadeHabilitacao: "",
+      email: "",
+      password: "",
     });
 
     setIsEditing(false);
@@ -53,7 +74,7 @@ export default function useMotoristas() {
   };
 
   const handleOpenEdit = (motorista: MotoristaType) => {
-    form.reset({ ...motorista, validadeHabilitacao: motorista.validadeHabilitacao?.slice(0, 10) });
+    baseForm.reset({ ...motorista, validadeHabilitacao: motorista.validadeHabilitacao?.slice(0, 10) });
 
     setIsEditing(true);
     setMotoristaSelecionado(motorista);
@@ -66,15 +87,29 @@ export default function useMotoristas() {
     setIsConfirmModalOpen(true);
   };
 
-  const onSubmit = async (data: MotoristaFormData) => {
-    if (isEditing && motoristaSelecionado) {
-      await editMotoristaMutation.mutateAsync({ id: motoristaSelecionado.id, data });
-      setIsModalOpen(false);
-
+  const onEditSubmit = async (data: MotoristaFormData) => {
+    if (!motoristaSelecionado) {
+      toast.error("Nenhum motorista foi selecionado");
       return;
     }
 
-    await createMotoristaMutation.mutateAsync(data);
+    await editMotoristaMutation.mutateAsync({ id: motoristaSelecionado.id, data });
+    setIsModalOpen(false);
+  };
+
+  const onCreateSubmit = async (data: CreateMotoristaFormData) => {
+    await createMotoristaMutation.mutateAsync({
+      ...data,
+      role: RoleUsuario.Operador,
+      motorista: {
+        cpf: data.cpf,
+        endereco: data.endereco,
+        renach: data.renach,
+        validadeHabilitacao: data.validadeHabilitacao,
+        tipoHabilitacao: data.tipoHabilitacao,
+        tipoVinculo: data.tipoVinculo,
+      },
+    });
     setIsModalOpen(false);
   };
 
@@ -93,7 +128,8 @@ export default function useMotoristas() {
   return {
     handleDelete,
     handleOpenAdd,
-    onSubmit,
+    onEditSubmit,
+    onCreateSubmit,
     handleOpenEdit,
     isModalOpen,
     setIsModalOpen,
@@ -105,7 +141,8 @@ export default function useMotoristas() {
     editMotoristaMutation,
     deleteMotoristaMutation,
     onSubmitDelete,
-    form,
+    baseForm,
+    createForm,
     isConfirmModalOpen,
     setIsConfirmModalOpen,
     motoristaSelecionado,
