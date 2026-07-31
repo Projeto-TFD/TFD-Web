@@ -3,5 +3,7 @@ export enum Rotas {
   Veiculos = "/veiculos",
   Motoristas = "/motoristas",
   Passageiros = "/passageiros",
+  Usuarios = "/usuarios",
+  Viagens = "/viagens",
   Login = "/login",
 }
