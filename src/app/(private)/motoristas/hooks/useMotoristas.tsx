@@ -99,7 +99,9 @@ export default function useMotoristas() {
 
   const onCreateSubmit = async (data: CreateMotoristaFormData) => {
     await createMotoristaMutation.mutateAsync({
-      ...data,
+      nome: data.nome,
+      email: data.email,
+      password: data.password,
       role: RoleUsuario.Operador,
       motorista: {
         cpf: data.cpf,
