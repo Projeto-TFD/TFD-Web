@@ -2,16 +2,17 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
-import { Pencil } from "lucide-react";
+import { KeyRound, Pencil } from "lucide-react";
 import { UsuarioType } from "@/src/types/usuario.types";
 import { BadgeVariant } from "@/src/components/ui/Badge";
 import Badge from "@/src/components/ui/Badge";
 
 interface UsuarioColumnsProps {
   onEdit: (usuario: UsuarioType) => void;
+  onEditSenha: (usuario: UsuarioType) => void;
 }
 
-export default function getUsuarioColumns({ onEdit }: UsuarioColumnsProps): ColumnDef<UsuarioType>[] {
+export default function getUsuarioColumns({ onEdit, onEditSenha }: UsuarioColumnsProps): ColumnDef<UsuarioType>[] {
   return [
     {
       accessorKey: "nome",
@@ -29,7 +30,7 @@ export default function getUsuarioColumns({ onEdit }: UsuarioColumnsProps): Colu
       cell: ({ row }) => {
         const variantMap: Record<UsuarioType["role"], BadgeVariant> = {
           ADMIN: "info",
-          OPERADOR: "default",
+          OPERADOR: "warning",
         };
 
         const labelMap: Record<UsuarioType["role"], string> = {
@@ -68,6 +69,16 @@ export default function getUsuarioColumns({ onEdit }: UsuarioColumnsProps): Colu
             onClick={() => onEdit(row.original)}
           >
             <Pencil className="size-4 text-slate-600" />
+          </Button>
+
+          <Button
+            title="Editar senha"
+            className="cursor-pointer"
+            size="icon"
+            variant="ghost"
+            onClick={() => onEditSenha(row.original)}
+          >
+            <KeyRound className="size-4 text-slate-600" />
           </Button>
         </div>
       ),

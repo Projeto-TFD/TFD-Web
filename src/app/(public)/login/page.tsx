@@ -4,6 +4,7 @@ import { Field, FieldLabel } from "@/components/ui/field";
 import useLogin from "./useLogin";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import InputPassword from "@/src/components/ui/InputPassword";
 
 export default function Login() {
   const { form, onSubmit, loginMutation } = useLogin();
@@ -36,9 +37,8 @@ export default function Login() {
                   Senha <span className="text-destructive">*</span>
                 </FieldLabel>
 
-                <Input
+                <InputPassword
                   required
-                  type="password"
                   autoComplete="current-password"
                   className="bg-background py-5 px-2"
                   placeholder="digite sua senha"

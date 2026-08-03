@@ -12,11 +12,13 @@ import { FormProvider } from "react-hook-form";
 import CriarAdminFields from "./_components/criarAdminFields";
 import EditUsuarioFields from "./_components/editUsuarioFields";
 import { RoleUsuario } from "@/src/types/usuario.types";
+import EditSenhaFields from "./_components/editSenhaFields";
 
 export default function UsuariosPage() {
   const {
     handleOpenAdd,
     handleOpenEdit,
+    handleOpenSenha,
     isModalOpen,
     setIsModalOpen,
     isEditing,
@@ -25,13 +27,21 @@ export default function UsuariosPage() {
     isError,
     createForm,
     editForm,
+    senhaForm,
     onCreateSubmit,
     onEditSubmit,
+    onSenhaSubmit,
     createAdminMutation,
     editUsuarioMutation,
+    editSenhaMutation,
+    isSenhaModalOpen,
+    setIsSenhaModalOpen,
   } = useUsuarios();
 
-  const columns = useMemo(() => getUsuarioColumns({ onEdit: handleOpenEdit }), [handleOpenEdit]);
+  const columns = useMemo(
+    () => getUsuarioColumns({ onEdit: handleOpenEdit, onEditSenha: handleOpenSenha }),
+    [handleOpenEdit, handleOpenSenha],
+  );
 
   return (
     <>
@@ -45,7 +55,7 @@ export default function UsuariosPage() {
             size={"lg"}
             onClick={handleOpenAdd}
           >
-            <Plus size={18} /> Nov Administrador
+            <Plus size={18} /> Novo Administrador
           </Button>
         </div>
 
@@ -80,7 +90,7 @@ export default function UsuariosPage() {
             onSubmit={editForm.handleSubmit(onEditSubmit)}
             disabled={!editForm.formState.isDirty}
             loading={editUsuarioMutation.isPending}
-            size="md"
+            size="lg"
           >
             <EditUsuarioFields />
           </FormModal>
@@ -93,12 +103,26 @@ export default function UsuariosPage() {
             title="Criar Administrador"
             onSubmit={createForm.handleSubmit(onCreateSubmit)}
             loading={createAdminMutation.isPending}
-            size="md"
+            size="lg"
           >
             <CriarAdminFields />
           </FormModal>
         </FormProvider>
       )}
+
+      <FormProvider {...senhaForm}>
+        <FormModal
+          open={isSenhaModalOpen}
+          onOpenChange={setIsSenhaModalOpen}
+          title="Editar Senha"
+          description="Defina uma nova senha para o usuário"
+          onSubmit={senhaForm.handleSubmit(onSenhaSubmit)}
+          loading={editSenhaMutation.isPending}
+          size="lg"
+        >
+          <EditSenhaFields />
+        </FormModal>
+      </FormProvider>
     </>
   );
 }
