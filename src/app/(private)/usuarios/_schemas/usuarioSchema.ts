@@ -16,4 +16,10 @@ export const editUsuarioSchema = z.object({
 
   ativo: z.enum(["true", "false"]),
 });
+
+export const editSenhaSchema = z.object({
+  password: z.string().min(8, "A senha deve possuir pelo menos 8 caracteres"),
+});
+
+export type EditSenhaFormData = z.infer<typeof editSenhaSchema>;
 export type EditUsuarioFormData = z.infer<typeof editUsuarioSchema>;

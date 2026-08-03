@@ -8,17 +8,21 @@ import { useEditUsuario } from "./useEditUsuario";
 import { useForm } from "react-hook-form";
 import {
   CreateAdminFormData,
+  EditSenhaFormData,
   EditUsuarioFormData,
   createAdminSchema,
+  editSenhaSchema,
   editUsuarioSchema,
 } from "../_schemas/usuarioSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
+import { useEditSenha } from "./useEditSenha";
 
 export default function useUsuarios() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [usuarioSelecionado, setUsuarioSelecionado] = useState<null | UsuarioType>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [isSenhaModalOpen, setIsSenhaModalOpen] = useState(false);
 
   const createForm = useForm<CreateAdminFormData>({
     resolver: zodResolver(createAdminSchema),
@@ -40,11 +44,21 @@ export default function useUsuarios() {
     },
   });
 
+  const senhaForm = useForm<EditSenhaFormData>({
+    resolver: zodResolver(editSenhaSchema),
+
+    defaultValues: {
+      password: "",
+    },
+  });
+
   const { isLoading, data, isError } = useUsuariosQuery();
 
   const createAdminMutation = useCreateAdmin();
 
   const editUsuarioMutation = useEditUsuario();
+
+  const editSenhaMutation = useEditSenha();
 
   const handleOpenAdd = () => {
     createForm.reset({
@@ -67,6 +81,15 @@ export default function useUsuarios() {
     setIsEditing(true);
     setUsuarioSelecionado(usuario);
     setIsModalOpen(true);
+  };
+
+  const handleOpenSenha = (usuario: UsuarioType) => {
+    senhaForm.reset({
+      password: "",
+    });
+
+    setUsuarioSelecionado(usuario);
+    setIsSenhaModalOpen(true);
   };
 
   const onCreateSubmit = async (data: CreateAdminFormData) => {
@@ -100,9 +123,27 @@ export default function useUsuarios() {
     setIsModalOpen(false);
   };
 
+  const onSenhaSubmit = async (data: EditSenhaFormData) => {
+    if (!usuarioSelecionado) {
+      toast.error("Nenhum usuário selecionado");
+
+      return;
+    }
+
+    await editSenhaMutation.mutateAsync({
+      id: usuarioSelecionado.id,
+      data: {
+        password: data.password,
+      },
+    });
+
+    setIsSenhaModalOpen(false);
+  };
+
   return {
     handleOpenAdd,
     handleOpenEdit,
+    handleOpenSenha,
     isModalOpen,
     setIsModalOpen,
     isEditing,
@@ -111,10 +152,14 @@ export default function useUsuarios() {
     isError,
     createForm,
     editForm,
+    senhaForm,
     onCreateSubmit,
     onEditSubmit,
+    onSenhaSubmit,
     createAdminMutation,
     editUsuarioMutation,
-    usuarioSelecionado,
+    editSenhaMutation,
+    isSenhaModalOpen,
+    setIsSenhaModalOpen,
   };
 }
