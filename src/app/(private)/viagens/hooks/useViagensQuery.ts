@@ -1,12 +1,13 @@
 "use client";
 
 import { queryKeys } from "@/src/constants/query-keys.constants";
-import { ViagemRequests } from "@/src/services/api/viagem/viagemRequests";
-import { useQuery } from "@tanstack/react-query";
+import { ParametrosViagensRequest, ViagemRequests } from "@/src/services/api/viagem/viagemRequests";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
-export function useViagensQuery() {
+export function useViagensQuery(params: ParametrosViagensRequest) {
   return useQuery({
-    queryKey: queryKeys.VIAGENS,
-    queryFn: async () => await ViagemRequests.getAll(),
+    queryKey: [...queryKeys.VIAGENS, params],
+    queryFn: async () => await ViagemRequests.getAll(params),
+    placeholderData: keepPreviousData,
   });
 }

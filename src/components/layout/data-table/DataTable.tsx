@@ -18,6 +18,13 @@ import Toolbar, { StatusFilter } from "./components/Toolbar";
 import Pagination from "./components/Pagination";
 import EmptyCustom from "../../ui/Empty";
 
+interface DataTablePagination {
+  pageIndex: number;
+  pageSize: number;
+  hasNextPage: boolean;
+  onPageChange: (pageIndex: number) => void;
+}
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -27,6 +34,8 @@ interface DataTableProps<TData, TValue> {
   statusFilter?: StatusFilter;
   emptyComponent?: ReactNode;
   pageSize?: number;
+  toolbar?: ReactNode;
+  pagination?: DataTablePagination;
 }
 
 export default function DataTable<TData, TValue>({
@@ -38,38 +47,60 @@ export default function DataTable<TData, TValue>({
   statusFilter,
   emptyComponent = <EmptyCustom />,
   pageSize = 10,
+  toolbar,
+  pagination,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
 
+  const isManualPagination = !!pagination;
+  const effectivePageSize = pagination?.pageSize ?? pageSize;
+
   // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable({
     data,
     columns,
-    state: { sorting, columnFilters, globalFilter },
-    initialState: { pagination: { pageSize } },
+    state: {
+      sorting,
+      columnFilters,
+      globalFilter,
+      ...(isManualPagination ? { pagination: { pageIndex: pagination.pageIndex, pageSize: effectivePageSize } } : {}),
+    },
+    initialState: isManualPagination ? undefined : { pagination: { pageSize } },
+    manualPagination: isManualPagination,
+    pageCount: isManualPagination ? -1 : undefined,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     onGlobalFilterChange: setGlobalFilter,
+    onPaginationChange: isManualPagination
+      ? (updater) => {
+          const current = { pageIndex: pagination.pageIndex, pageSize: effectivePageSize };
+          const next = typeof updater === "function" ? updater(current) : updater;
+
+          pagination.onPageChange(next.pageIndex);
+        }
+      : undefined,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
+    getPaginationRowModel: isManualPagination ? undefined : getPaginationRowModel(),
   });
 
   const columnCount = table.getVisibleLeafColumns().length;
 
   return (
     <div className="flex flex-col gap-4">
-      <Toolbar
-        table={table}
-        searchColumn={searchColumn}
-        statusFilter={statusFilter}
-        searchPlaceholder={searchPlaceholder}
-        globalFilter={globalFilter}
-        setGlobalFilter={setGlobalFilter}
-      />
+      {toolbar ?? (
+        <Toolbar
+          table={table}
+          searchColumn={searchColumn}
+          statusFilter={statusFilter}
+          searchPlaceholder={searchPlaceholder}
+          globalFilter={globalFilter}
+          setGlobalFilter={setGlobalFilter}
+        />
+      )}
 
       <div className="rounded-md border bg-card">
         <Table>
@@ -118,7 +149,7 @@ export default function DataTable<TData, TValue>({
         </Table>
       </div>
 
-      <Pagination table={table} isLoading={isLoading} />
+      <Pagination table={table} isLoading={isLoading} hasNextPage={pagination?.hasNextPage} />
     </div>
   );
 }

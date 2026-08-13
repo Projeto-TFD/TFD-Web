@@ -1,14 +1,9 @@
+import { CidadeType } from "./cidade.types";
 import { MotoristaType } from "./motorista.types";
 import { PassageiroType } from "./passageiros.types";
 import { VeiculoType } from "./veiculos.types";
 
 export type ViagemIdType = number;
-
-export type CidadeType = {
-  id: number;
-  nome: string;
-  uf: string;
-};
 
 export enum TipoParticipacao {
   Paciente = "PACIENTE",

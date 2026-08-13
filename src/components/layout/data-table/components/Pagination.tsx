@@ -7,13 +7,19 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 interface PaginationProps<TData> {
   table: Table<TData>;
   isLoading: boolean;
+  hasNextPage?: boolean;
 }
 
-export default function Pagination<TData>({ table, isLoading }: PaginationProps<TData>) {
+export default function Pagination<TData>({ table, isLoading, hasNextPage }: PaginationProps<TData>) {
+  const isManual = hasNextPage !== undefined;
+  const canNextPage = isManual ? hasNextPage : table.getCanNextPage();
+
   return (
     <div className="flex items-center justify-between gap-2">
       <span className="text-sm text-muted-foreground tabular-nums">
-        Página {table.getState().pagination.pageIndex + 1} de {Math.max(1, table.getPageCount())}
+        {isManual
+          ? `Página ${table.getState().pagination.pageIndex + 1}`
+          : `Página ${table.getState().pagination.pageIndex + 1} de ${Math.max(1, table.getPageCount())}`}
       </span>
       <div className="flex items-center gap-2">
         <Button
@@ -25,12 +31,7 @@ export default function Pagination<TData>({ table, isLoading }: PaginationProps<
           <ChevronLeft className="size-4" />
           Anterior
         </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage() || isLoading}
-        >
+        <Button variant="outline" size="sm" onClick={() => table.nextPage()} disabled={!canNextPage || isLoading}>
           Próxima
           <ChevronRight className="size-4" />
         </Button>
