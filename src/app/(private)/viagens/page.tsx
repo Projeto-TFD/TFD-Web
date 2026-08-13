@@ -1,10 +1,12 @@
 "use client";
 
 import useViagens from "./hooks/useViagens";
+import { useViagensFiltrosOptions } from "./hooks/useViagensFiltrosOptions";
 import EmptyCustom from "@/src/components/ui/Empty";
 import DataTable from "@/src/components/layout/data-table/DataTable";
 import { useMemo } from "react";
 import getViagemColumns from "./_components/viagemColumns";
+import ViagemFiltros from "./_components/viagemFiltros";
 import InfoModal from "@/src/components/layout/modais/InfoModal";
 import VeiculoInfoView from "./_components/veiculoInfoView";
 import PassageirosInfoView from "./_components/passageirosInfoView";
@@ -21,7 +23,16 @@ export default function ViagensPage() {
     viagemSelecionada,
     handleViewVeiculo,
     handleViewPassageiros,
+    filtros,
+    handleFiltroChange,
+    handleLimparFiltros,
+    pageIndex,
+    setPageIndex,
+    hasNextPage,
+    pageSize,
   } = useViagens();
+
+  const { motoristas, veiculos, passageiros, cidades } = useViagensFiltrosOptions();
 
   const columns = useMemo(
     () =>
@@ -46,9 +57,24 @@ export default function ViagensPage() {
         <DataTable
           columns={columns}
           data={data || []}
-          searchColumn="motorista"
           isLoading={isLoading}
-          searchPlaceholder="Pesquisar por motorista..."
+          toolbar={
+            <ViagemFiltros
+              filtros={filtros}
+              onFiltroChange={handleFiltroChange}
+              onLimparFiltros={handleLimparFiltros}
+              motoristas={motoristas}
+              veiculos={veiculos}
+              passageiros={passageiros}
+              cidades={cidades}
+            />
+          }
+          pagination={{
+            pageIndex,
+            pageSize,
+            hasNextPage,
+            onPageChange: setPageIndex,
+          }}
         />
       )}
 
